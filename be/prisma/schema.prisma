@@ -1,0 +1,44 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-arm64-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Employee {
+  id        Int      @id
+  name      String   @db.VarChar(40)
+  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(0)
+  updatedAt DateTime @default(now()) @map("updated_at") @db.DateTime(0)
+  skill     Skill[]
+
+  @@map("employee")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Skill {
+  id         Int      @id @default(autoincrement())
+  employeeId Int      @map("employee_id")
+  language   String   @db.VarChar(40)
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "skill_ibfk_1")
+
+  @@index([employeeId], map: "employee_id")
+  @@map("skill")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Account {
+  userId       Int      @id @default(autoincrement()) @map("user_id")
+  userName     String   @unique(map: "user_name") @map("user_name") @db.VarChar(255)
+  passwordHash String   @map("password_hash") @db.VarChar(255)
+  salt         String   @db.VarChar(100)
+  createdAt    DateTime @default(now()) @map("created_at") @db.DateTime(0)
+  updatedAt    DateTime @default(now()) @map("updated_at") @db.DateTime(0)
+  isActive     Boolean  @default(true) @map("is_active")
+
+  @@map("account")
+}
