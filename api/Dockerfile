@@ -1,6 +1,6 @@
 # 開発環境
 # Use the official Node.js image as the base image
-FROM node:20 AS development
+FROM node:23 AS development
 
 # Set the working directory inside the container
 WORKDIR /usr/workspace
@@ -18,11 +18,11 @@ COPY . .
 EXPOSE 3020
 
 # Command to run the application
-CMD ["yarn", "run", "start:dev"]
+CMD ["yarn", "start:dev"]
 
 # 本番環境
 # Use the official Node.js image as the base image
-FROM node:20 AS production
+FROM node:23 AS production
 
 # Set the working directory inside the container
 WORKDIR /usr/workspace
@@ -40,4 +40,4 @@ RUN corepack enable && \
 EXPOSE 3020
 
 # Command to run the application
-CMD ["yarn", "run", "start:prod"]
+CMD ["yarn", "start:prod"]

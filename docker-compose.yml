@@ -1,0 +1,57 @@
+services:
+  api:
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+      target: development
+    expose:
+      - 3306  # 他コンテナにポートを開放する
+    # ホストマシンから直接アクセスできるように設定
+    ports:
+      - "3020:3020"
+    depends_on:
+      db:
+        condition: service_healthy
+    # Prismaに関するファイル共有
+    volumes:
+      - ./api/prisma:/usr/workspace/prisma
+    # ホットリロードのための設定
+    develop:
+      watch:
+        - action: sync
+          path: ./api/src # ホストマシンのディレクトリ
+          target: /usr/workspace/src # コンテナのディレクトリ
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./api/package.json
+
+  db:
+    container_name: db
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+      target: development
+    expose:
+      - 3306  # 他コンテナにポートを開放する
+    # ホストマシンから直接アクセスできるように設定
+    ports:
+      - "3306:3306"
+    # データベースの内容を永続化する
+    volumes:
+      - nestjs-starter-db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=Password!
+      - MYSQL_DATABASE=sample
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=Password!
+    healthcheck:
+      test: "mysqladmin ping -h 127.0.0.1 -u root -pPassword!"
+      interval: 5s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  nestjs-starter-db:

@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "name": "ROOT",
+      "path": "."
+    },
+    {
+      "name": "API",
+      "path": "api"
+    },
+    {
+      "name": "DB",
+      "path": "db"
+    }
+  ],
+  "settings": {}
+}
