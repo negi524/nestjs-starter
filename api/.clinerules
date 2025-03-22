@@ -24,5 +24,5 @@ src/
   app.service.ts
   health/       # ヘルスチェック用のエンドポイントを配置
   tesk/         # バッチ処理を配置
-  test/         # テストコード
+test/           # テストコード
 ```
