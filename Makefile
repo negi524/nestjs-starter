@@ -21,16 +21,3 @@ dev-schemaspy-delete-container:
 # Delete containers and volumes
 dev-schemaspy-delete-all:
 	docker compose -f ./docker-compose-schemaspy.yml down -v --rmi all
-
-
-# Start prod container
-prod:
-	docker compose -f ./docker-compose-prod.yml up -d
-
-# Delete container
-prod-delete-contaner:
-	docker compose -f ./docker-compose-prod.yml down --rmi all
-
-# Delete containers and volumes
-prod-delete-all:
-	docker compose -f ./docker-compose-prod.yml down -v --rmi all
