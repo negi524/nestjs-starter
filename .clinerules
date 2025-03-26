@@ -1,0 +1,24 @@
+# 概要
+このアプリケーションは、NestJSを用いたWebAPIのテンプレートリポジトリです。
+
+## アプリケーションの目的
+- このリポジトリをテンプレートとして使うことにより、今後NestJSを用いたAPI開発を行う際の作業負担を減らす
+- 基本的なWebAPIの実装を行うことにより、NestJSアプリケーションのベストプラクティスのお手本になる
+
+## ルール
+- このリポジトリはモノレポ構成です
+- 各ワークスペースのファイルを対象に作業を行う場合には、それぞれのワークスペースの`.clinerules`と`.clineignore`を参照してください
+- DockerComposeに関するコマンドは、`Makefile`を用いて実行してください
+- `git status`以外のgitコマンドは使わないでください
+
+## ディレクトリ構成
+DockerComposeを用いたモノレポ構成です。
+
+```
+api/                          # NestJSのを使ったWebAPIアプリケーション
+db/                           # データベースの設定ファイル
+docker-compose.yml            # ローカル開発で用いるDockerCompose環境
+docker-compose-prod.yml       # 本番デプロイ時に用いるDockerCompose環境
+docker-compose-schemaspy.yml  # データベースのSchemaSpyを生成するためのアプリケーション
+Makefile                      # 実行コマンドを定義
+```
