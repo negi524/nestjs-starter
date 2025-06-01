@@ -27,6 +27,15 @@ services:
         - action: rebuild
           path: ./api/package.json
 
+  mailserver:
+    container_name: mailserver
+    image: maildev/maildev
+    ports:
+      - '1025:1025'   # SMTP
+      - '1080:1080'   # Web UI
+    expose:
+      - 1025
+
   db:
     container_name: db
     build:

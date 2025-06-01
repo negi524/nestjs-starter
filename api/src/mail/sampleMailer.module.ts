@@ -7,15 +7,14 @@ import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
 @Module({
   imports: [
     MailerModule.forRoot({
-      // transport: 'smtps://user@domain.com:pass@smtp.domain.com',
       transport: {
-        hsot: 'localhost',
+        host: 'mailserver',
         port: 1025,
         ignoreTLS: true,
         secure: false,
         auth: {
-          user: 'hoge',
-          pass: 'fuga',
+          user: 'dummy',
+          pass: 'dummy',
         },
       },
       defaults: {
@@ -24,9 +23,7 @@ import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
       preview: true,
       template: {
         dir: __dirname + '/templates',
-        adapter: new EjsAdapter({
-          inlineCssEnabled: false,
-        }),
+        adapter: new EjsAdapter(),
         options: {
           strict: true,
         },
