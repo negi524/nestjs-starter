@@ -17,19 +17,6 @@
 - 日時操作ライブラリ: date-fns
 - テストツール: Jest
 
-## ディレクトリ構成
-
-```
-prisma/         # prismaのスキーマ
-src/
-  main.ts       # アプリケーションの設定が記載されるファイル
-  app.module.ts # 全てのモジュールを集約する
-  app.service.ts
-  health/       # ヘルスチェック用のエンドポイントを配置
-  tesk/         # バッチ処理を配置
-test/           # テストコード
-```
-
 ## コーディング規約
 
 ### 関数型アプローチ
@@ -37,3 +24,39 @@ test/           # テストコード
 - 不変データ構造を使用
 - 副作用を分離
 - 型安全性を確保
+
+### ディレクトリ構成
+以下の例を参考に構成すること。
+```
+src/
+├── shared/                    # 共通関心事
+│   ├── domain/
+│   │   ├── value-objects/
+│   │   ├── events/
+│   │   └── exceptions/
+│   └── infrastructure/
+│       ├── database/
+│       ├── messaging/
+│       └── external-apis/
+├── modules/                   # ドメイン別モジュール
+│   ├── user/
+│   │   ├── domain/
+│   │   │   ├── entities/
+│   │   │   ├── value-objects/
+│   │   │   ├── repositories/  # インターface
+│   │   │   └── services/      # ドメインサービス
+│   │   ├── application/
+│   │   │   ├── commands/
+│   │   │   ├── queries/
+│   │   │   ├── handlers/
+│   │   │   └── dto/
+│   │   ├── infrastructure/
+│   │   │   ├── repositories/  # 実装
+│   │   │   └── adapters/
+│   │   └── presentation/
+│   │       ├── controllers/
+│   │       └── dto/
+│   └── product/
+│       └── ...同様の構成
+└── app.module.ts
+```

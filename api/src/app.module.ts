@@ -6,6 +6,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './user/user.module';
 import { EmployeeModule } from './employee/employee.module';
 import { TasksModule } from './task/tasks.module';
+import { SampleMailerModule } from './mail/sampleMailer.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { TasksModule } from './task/tasks.module';
     PrismaModule,
     UserModule,
     EmployeeModule,
+    SampleMailerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
