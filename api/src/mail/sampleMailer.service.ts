@@ -5,7 +5,7 @@ import { Injectable } from '@nestjs/common';
 export class SampleMailerService {
   constructor(private readonly mailerService: MailerService) {}
 
-  public send(): void {
+  public sendSimpleMail(): void {
     this.mailerService
       .sendMail({
         to: 'test@example.com', // list of receivers
@@ -13,6 +13,21 @@ export class SampleMailerService {
         subject: 'Testing Nest MailerModule ✔', // Subject line
         text: 'welcome', // plaintext body
         html: '<b>welcome</b>', // HTML body content
+      })
+      .then(() => console.log('success to send mail.'))
+      .catch((error) => console.error('failed to send mail.', error));
+  }
+
+  public sendMailWithTemplate(): void {
+    this.mailerService
+      .sendMail({
+        to: 'test@example.com', // list of receivers
+        from: 'noreply@nestjs.com', // sender address
+        subject: 'Testing Nest MailerModule with ejs template', // Subject line
+        template: 'testMailTemplate',
+        context: {
+          username: 'john doe',
+        },
       })
       .then(() => console.log('success to send mail.'))
       .catch((error) => console.error('failed to send mail.', error));

@@ -11,7 +11,8 @@ export class SampleMailerController {
    */
   @Get()
   sendMail() {
-    this.sampleMailerService.send();
+    // this.sampleMailerService.sendSimpleMail();
+    this.sampleMailerService.sendMailWithTemplate();
     return 'send mail.';
   }
 }
