@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { SampleMailerService } from './sampleMailer.service';
+import { ApiOperation } from '@nestjs/swagger';
 
 @Controller('mail')
 export class SampleMailerController {
@@ -10,6 +11,7 @@ export class SampleMailerController {
    * @returns メール送信結果
    */
   @Get()
+  @ApiOperation({ summary: 'メール送信を行う' })
   sendMail() {
     // this.sampleMailerService.sendSimpleMail();
     this.sampleMailerService.sendMailWithTemplate();
