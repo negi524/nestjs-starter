@@ -11,9 +11,17 @@ $ cp api/.env.sample api/.env
 ### Setup prisma
 
 ```bash
-$ docker compose exec api yarn prisma db pull
-$ docker compose exec api yarn run format:prisma
-$ docker compose exec api yarn prisma generate
+$ cd api
+$ yarn prisma db pull
+$ yarn run format:prisma
+$ yarn prisma generate
+```
+
+### Start application
+
+```bash
+$ cd api
+$ yarn start
 ```
 
 ## DB
@@ -25,4 +33,10 @@ $ mysql -h localhost -u root -p -D sample --protocol=tcp
 Enter password:Password!
 
 mysql>
+```
+
+### Start database
+
+```bash
+make dev
 ```
