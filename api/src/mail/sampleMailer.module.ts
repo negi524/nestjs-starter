@@ -5,6 +5,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
 import * as path from 'path';
 
+// TODO: Xcodeシミュレーターの起動をOFFにする
+// https://www.npmjs.com/package/preview-email#options
 @Module({
   imports: [
     MailerModule.forRoot({

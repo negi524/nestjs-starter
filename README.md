@@ -11,7 +11,17 @@ cp api/.env.sample api/.env
 ### Setup prisma
 
 ```bash
-yarn prisma db pull
+$ cd api
+$ yarn prisma db pull
+$ yarn run format:prisma
+$ yarn prisma generate
+```
+
+### Start application
+
+```bash
+$ cd api
+$ yarn start
 ```
 
 ```bash
@@ -39,4 +49,10 @@ $ mysql -h localhost -u root -p -D sample --protocol=tcp
 Enter password:Password!
 
 mysql>
+```
+
+### Start database
+
+```bash
+make dev
 ```
