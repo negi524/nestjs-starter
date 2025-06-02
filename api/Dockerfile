@@ -1,11 +1,13 @@
 # Use the official Node.js image as the base image
-FROM node:22-alpine
+FROM node:22
 
 # Set the working directory inside the container
 WORKDIR /usr/workspace
 
+ENV NODE_ENV=production
+
 # Copy the rest of the application files
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock .yarnrc.yml ./
 
 # Install the application dependencies
 # Build the NestJS application
@@ -14,10 +16,11 @@ RUN corepack enable && \
 
 COPY . .
 
-RUN yarn build
+RUN yarn prisma generate && \
+  yarn build
 
 # Expose the application port
 EXPOSE 3000
 
 # Command to run the application
-CMD ["node", "dist/main"]
+ENTRYPOINT ["node", "dist/main"]
