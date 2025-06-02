@@ -4,6 +4,7 @@ FROM node:22
 # Set the working directory inside the container
 WORKDIR /usr/workspace
 
+# TODO: `.env`を参照してしまっていて、`.env.production`を参照できていない
 ENV NODE_ENV=production
 
 # Copy the rest of the application files
