@@ -5,11 +5,13 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
 import * as path from 'path';
 
+// TODO: Xcodeシミュレーターの起動をOFFにする
+// https://www.npmjs.com/package/preview-email#options
 @Module({
   imports: [
     MailerModule.forRoot({
       transport: {
-        host: 'mailserver',
+        host: 'localhost',
         port: 1025,
         ignoreTLS: true,
         secure: false,
@@ -21,7 +23,6 @@ import * as path from 'path';
       defaults: {
         from: '"No Reply" <no-reply@localhost>',
       },
-      preview: true,
       template: {
         dir: path.join(process.env.PWD ?? '', 'src/mailtemplates'),
         adapter: new EjsAdapter(),

@@ -1,43 +1,27 @@
-# 開発環境
 # Use the official Node.js image as the base image
-FROM node:23 AS development
+FROM node:22
 
 # Set the working directory inside the container
 WORKDIR /usr/workspace
 
-# Copy package.json and yarn.lock to the working directory
+# TODO: `.env`を参照してしまっていて、`.env.production`を参照できていない
+ENV NODE_ENV=production
+
+# Copy the rest of the application files
 COPY package.json yarn.lock .yarnrc.yml ./
-
-# Install the application dependencies
-RUN corepack enable && yarn install --immutable
-
-# Copy the rest of the application files
-COPY . .
-
-# Expose the application port
-EXPOSE 3020
-
-# Command to run the application
-CMD ["yarn", "start:dev"]
-
-# 本番環境
-# Use the official Node.js image as the base image
-FROM node:23 AS production
-
-# Set the working directory inside the container
-WORKDIR /usr/workspace
-
-# Copy the rest of the application files
-COPY . .
 
 # Install the application dependencies
 # Build the NestJS application
 RUN corepack enable && \
-  yarn install --immutable && \
-  yarn run build
+  yarn install --immutable
+
+COPY . .
+
+RUN yarn prisma generate && \
+  yarn build
 
 # Expose the application port
-EXPOSE 3020
+EXPOSE 3000
 
 # Command to run the application
-CMD ["yarn", "start:prod"]
+ENTRYPOINT ["node", "dist/main"]
