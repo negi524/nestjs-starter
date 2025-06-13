@@ -1,0 +1,52 @@
+name: API Pull Request Workflow
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'api/**'
+
+defaults:
+  run:
+    working-directory: api
+
+jobs:
+  # APIのビルドとテストを検証
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22.x]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: corepack enable && yarn install --immutable
+      # ビルドチェック
+      - name: Build check
+        run: yarn build
+      - name: Test check
+        run: yarn test:cov
+
+  # APIの静的解析とフォーマットチェック
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22.x]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: corepack enable && yarn install --immutable
+      # 静的解析
+      - run: yarn lint
+      # フォーマッタチェック
+      - run: yarn format:check
