@@ -5,16 +5,30 @@
 ### Setup environment file
 
 ```bash
-$ cp api/.env.sample api/.env
+cp api/.env.sample api/.env
 ```
 
 ### Setup prisma
 
 ```bash
-$ docker compose exec api yarn prisma db pull
-$ docker compose exec api yarn run format:prisma
-$ docker compose exec api yarn prisma generate
+yarn prisma db pull
 ```
+
+```bash
+yarn format:prisma
+```
+
+```bash
+yarn prisma generate
+```
+
+### Start application
+
+```bash
+yarn start
+```
+
+http://localhost:3000
 
 ## DB
 
