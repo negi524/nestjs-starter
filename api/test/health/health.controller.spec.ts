@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { HealthController } from '../../src/health/health.controller';
+import { HealthController } from 'src/health/health.controller';
 
 describe('HealthController', () => {
   let controller: HealthController;
@@ -12,7 +12,14 @@ describe('HealthController', () => {
     controller = module.get<HealthController>(HealthController);
   });
 
-  it('should be defined', () => {
+  test('should be defined', () => {
     expect(controller).toBeDefined();
+  });
+
+  test('check', () => {
+    expect(controller.check()).toStrictEqual({
+      status: 'ok',
+      details: {},
+    });
   });
 });

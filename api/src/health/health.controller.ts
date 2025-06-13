@@ -1,10 +1,9 @@
-import { Controller, Get, HttpStatus } from '@nestjs/common';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Controller, Get, } from '@nestjs/common';
+import { ApiOperation, } from '@nestjs/swagger';
 import { HealthCheck, HealthCheckResult } from '@nestjs/terminus';
 
 @Controller('health')
 export class HealthController {
-  constructor() {}
 
   @Get()
   @HealthCheck()

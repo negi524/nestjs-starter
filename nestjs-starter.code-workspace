@@ -13,5 +13,9 @@
       "path": "db"
     }
   ],
-  "settings": {}
+  "settings": {
+    "prettier.bracketSpacing": false,
+    "prettier.configPath": ".prettierrc.js",
+    "editor.formatOnSave": true
+  }
 }
