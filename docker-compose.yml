@@ -1,40 +1,10 @@
 services:
-  api:
-    container_name: api
-    build:
-      context: ./api
-      dockerfile: Dockerfile
-      target: development
-    expose:
-      - 3306  # 他コンテナにポートを開放する
-    # ホストマシンから直接アクセスできるように設定
-    ports:
-      - "3020:3020"
-    depends_on:
-      db:
-        condition: service_healthy
-    # Prismaに関するファイル共有
-    volumes:
-      - ./api/prisma:/usr/workspace/prisma
-    # ホットリロードのための設定
-    develop:
-      watch:
-        - action: sync
-          path: ./api/src # ホストマシンのディレクトリ
-          target: /usr/workspace/src # コンテナのディレクトリ
-          ignore:
-            - node_modules/
-        - action: rebuild
-          path: ./api/package.json
-
   mailserver:
     container_name: mailserver
     image: maildev/maildev
     ports:
       - '1025:1025'   # SMTP
       - '1080:1080'   # Web UI
-    expose:
-      - 1025
 
   db:
     container_name: db
@@ -42,8 +12,6 @@ services:
       context: ./db
       dockerfile: Dockerfile
       target: development
-    expose:
-      - 3306  # 他コンテナにポートを開放する
     # ホストマシンから直接アクセスできるように設定
     ports:
       - "3306:3306"

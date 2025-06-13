@@ -9,7 +9,7 @@ import * as path from 'path';
   imports: [
     MailerModule.forRoot({
       transport: {
-        host: 'mailserver',
+        host: 'localhost',
         port: 1025,
         ignoreTLS: true,
         secure: false,
