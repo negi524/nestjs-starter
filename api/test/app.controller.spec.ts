@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from '../src/app.controller';
 import { AppService } from '../src/app.service';
-import {describe, beforeEach, expect, test } from 'vitest'
+import { describe, beforeEach, expect, test } from 'vitest';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -15,14 +15,9 @@ describe('AppController', () => {
     appController = app.get<AppController>(AppController);
   });
 
-  // describe('root', () => {
-  //   test('should return "Hello World!"', () => {
-  //     expect(appController.getHello()).toBe('Hello World!');
-  //   });
-  // });
-
-  test('1 + 1 = 2', () => {
-    expect(1 + 1).toBe(2);
-  }
-  );
+  describe('root', () => {
+    test('should return "Hello World!"', () => {
+      expect(appController.getHello()).toBe('Hello World!');
+    });
+  });
 });
