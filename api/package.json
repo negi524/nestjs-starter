@@ -8,6 +8,7 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
     "format:prisma": "prisma-case-format -f prisma/schema.prisma",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -65,23 +66,6 @@
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.27.0",
     "vitest": "^3.2.3"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "test",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
   },
   "packageManager": "yarn@4.7.0"
 }
