@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="sample" schema="sample" type="MySQL - 9.1.0">
+   <tables>
+      <table catalog="sample" name="account" numRows="2" remarks="アカウントテーブル" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="user_id" nullable="false" remarks="ユーザーID" size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="user_name" nullable="false" remarks="ユーザー名" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="password_hash" nullable="false" remarks="パスワード" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="salt" nullable="false" remarks="パスワード用ソルト" size="100" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="CURRENT_TIMESTAMP" digits="0" id="4" name="created_at" nullable="false" remarks="アカウント作成日時" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="CURRENT_TIMESTAMP" digits="0" id="5" name="updated_at" nullable="false" remarks="更新日時" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="1" digits="0" id="6" name="is_active" nullable="false" remarks="アカウントが有効である" size="1" type="BIT" typeCode="-7"/>
+         <primaryKey column="user_id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="user_id"/>
+         </index>
+         <index name="user_name" unique="true">
+            <column ascending="true" name="user_name"/>
+         </index>
+      </table>
+      <table catalog="sample" name="employee" numRows="2" remarks="従業員テーブル" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="従業員ID" size="10" type="INT" typeCode="4">
+            <child catalog="sample" column="employee_id" foreignKey="skill_ibfk_1" implied="false" onDeleteCascade="false" table="skill"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="従業員名" size="40" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="CURRENT_TIMESTAMP" digits="0" id="2" name="created_at" nullable="false" remarks="レコード作成日時" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="CURRENT_TIMESTAMP" digits="0" id="3" name="updated_at" nullable="false" remarks="レコード更新日時" size="19" type="DATETIME" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table catalog="sample" name="skill" numRows="0" remarks="スキル情報" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="スキルID" size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="employee_id" nullable="false" remarks="従業員ID" size="10" type="INT" typeCode="4">
+            <parent catalog="sample" column="id" foreignKey="skill_ibfk_1" implied="false" onDeleteCascade="false" table="employee"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="language" nullable="false" remarks="プログラミング言語" size="40" type="VARCHAR" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="employee_id" unique="false">
+            <column ascending="true" name="employee_id"/>
+         </index>
+      </table>
+   </tables>
+</database>

@@ -1,0 +1,16 @@
+services:
+  schemaspy:
+    container_name: schemaspy
+    build:
+      context: ./schemaspy
+      dockerfile: Dockerfile
+    platform: linux/amd64 # M1 Macで使うための設定
+    volumes:
+      - ./docs:/output
+    # docker-compose.ymlで作成したネットワークに接続する
+    networks:
+      - nestjs-starter_default
+
+networks:
+  nestjs-starter_default:
+    external: true
