@@ -18,12 +18,12 @@ import {
   ApiOkResponse,
   ApiOperation,
 } from '@nestjs/swagger';
-import { UserService } from './user.service';
-import CreateUserDto from './createUserDto';
-import UserResponseDto from './userResponseDto';
-import SigninUserDto from './signinUserDto';
-import User from './domain/user';
-import UserName from './domain/userName';
+import { UserService } from '../application/user.service';
+import UserResponseDto from './dto/response/userResponseDto';
+import SigninUserDto from './dto/request/signinUserDto';
+import User from '../domain/model/user';
+import UserName from '../domain/model/userName';
+import CreateUserDto from './dto/request/createUserDto';
 
 @Controller('users')
 export class UserController {

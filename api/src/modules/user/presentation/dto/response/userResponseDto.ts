@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import User from './domain/user';
+import User from '../../../domain/model/user';
 
 export default class UserResponseDto {
   @ApiProperty({
