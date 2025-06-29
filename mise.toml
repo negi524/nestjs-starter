@@ -9,3 +9,10 @@ run = "docker compose -f ./docker-compose.yml down --rmi all"
 [tasks.dev-delete-all]
 description = "Delete all containers and volumes"
 run = "docker compose -f ./docker-compose.yml down -v --rmi all"
+
+[tasks.generate-schemaspy]
+description = "Generate Schemaspy"
+run = """
+docker compose -f ./docker-compose-schemaspy.yml up && \
+docker compose -f ./docker-compose-schemaspy.yml down -v --rmi all
+"""
