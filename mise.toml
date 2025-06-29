@@ -1,0 +1,11 @@
+[tasks.dev]
+description = "Start db and email container"
+run = "docker compose -f ./docker-compose.yml up"
+
+[tasks.dev-delete-container]
+description = "Delete all containers"
+run = "docker compose -f ./docker-compose.yml down --rmi all"
+
+[tasks.dev-delete-all]
+description = "Delete all containers and volumes"
+run = "docker compose -f ./docker-compose.yml down -v --rmi all"

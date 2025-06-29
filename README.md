@@ -54,5 +54,5 @@ mysql>
 ### Start database
 
 ```bash
-make dev
+mise run dev
 ```
