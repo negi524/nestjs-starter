@@ -12,11 +12,11 @@ import {
   ApiProduces,
   ApiResponse,
 } from '@nestjs/swagger';
-import EmployeeRequestDto from './employeeRequestDto';
+import EmployeeRequestDto from './dto/request/employeeRequestDto';
 import { Employee } from '@prisma/client';
-import { EmployeeService } from './employee.service';
 import * as csv from '@fast-csv/format';
-import { EmployeeCsvDto } from './employeeCsvDto';
+import { EmployeeService } from '../application/employee.service';
+import { EmployeeCsvDto } from './dto/response/employeeCsvDto';
 
 /**
  * 従業員用のコントローラー

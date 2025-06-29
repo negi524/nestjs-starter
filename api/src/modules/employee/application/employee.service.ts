@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Employee } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { EmployeeCsvDto } from './employeeCsvDto';
+import { EmployeeCsvDto } from '../presentation/dto/response/employeeCsvDto';
 
 /**
  * 従業員の操作
