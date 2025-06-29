@@ -16,3 +16,6 @@ run = """
 docker compose -f ./docker-compose-schemaspy.yml up && \
 docker compose -f ./docker-compose-schemaspy.yml down -v --rmi all
 """
+
+[tools]
+"npm:http-server" = "latest"
