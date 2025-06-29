@@ -1,9 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as bcryptjs from 'bcryptjs';
 import { PrismaService } from 'src/prisma/prisma.service';
-import User from 'src/user/domain/user';
 import UserName from './domain/userName';
 import { Account } from '@prisma/client';
+import User from './domain/user';
 
 /**
  * ユーザー操作
