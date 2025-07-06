@@ -32,6 +32,10 @@ yarn format:prisma
 yarn prisma generate
 ```
 
+```bash
+yarn prisma migrate dev
+```
+
 ### Start application
 
 ```bash
