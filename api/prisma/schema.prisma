@@ -4,7 +4,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -12,8 +12,8 @@ datasource db {
 model Employee {
   id        Int      @id
   name      String   @db.VarChar(40)
-  createdAt DateTime @default(now()) @map("created_at") @db.DateTime(0)
-  updatedAt DateTime @default(now()) @map("updated_at") @db.DateTime(0)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
   skill     Skill[]
 
   @@map("employee")
@@ -36,8 +36,8 @@ model Account {
   userName     String   @unique(map: "user_name") @map("user_name") @db.VarChar(255)
   passwordHash String   @map("password_hash") @db.VarChar(255)
   salt         String   @db.VarChar(100)
-  createdAt    DateTime @default(now()) @map("created_at") @db.DateTime(0)
-  updatedAt    DateTime @default(now()) @map("updated_at") @db.DateTime(0)
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
   isActive     Boolean  @default(true) @map("is_active")
 
   @@map("account")

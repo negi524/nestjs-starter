@@ -45,10 +45,7 @@ http://localhost:3000
 ### Access database
 
 ```bash
-$ mysql -h localhost -u root -p -D sample --protocol=tcp
-Enter password:Password!
-
-mysql>
+psql 'postgresql://postgres:Password!@localhost:5432/sample?connect_timeout=10'
 ```
 
 ### Start database
