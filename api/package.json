@@ -67,5 +67,8 @@
     "typescript-eslint": "^8.27.0",
     "vitest": "^3.2.3"
   },
+  "prisma": {
+    "seed": "ts-node src/prisma/seed.ts"
+  },
   "packageManager": "yarn@4.7.0"
 }

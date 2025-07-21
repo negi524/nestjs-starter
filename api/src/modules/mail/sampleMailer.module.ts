@@ -24,7 +24,7 @@ import * as path from 'path';
         from: '"No Reply" <no-reply@localhost>',
       },
       template: {
-        dir: path.join(process.env.PWD ?? '', 'src/mailtemplates'),
+        dir: path.join(process.env.PWD ?? '', 'src/modules/mailtemplates'),
         adapter: new EjsAdapter(),
       },
     }),

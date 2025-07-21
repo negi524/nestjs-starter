@@ -1,22 +1,22 @@
 # 開発環境
-FROM mysql:9.1.0 AS development
+FROM postgres:17-alpine AS development
 
 # Copy setting file
-COPY ./etc/mysql/my.cnf /etc/mysql/my.cnf
+COPY ./conf/postgresql.conf /etc/postgresql/postgresql.conf
 
-# Copy init script
-COPY ./initdb.d/ /docker-entrypoint-initdb.d/
+# 開発環境用ユーザー作成のスクリプトをコピー
+COPY ./init-users.sql /docker-entrypoint-initdb.d/
 
-EXPOSE 3306
+CMD ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
 
+EXPOSE 5432
 
 # 本番環境
-FROM mysql:9.1.0 AS production
+FROM postgres:17-alpine AS production
 
 # Copy setting file
-COPY ./etc/mysql/my.cnf /etc/mysql/my.cnf
+COPY ./conf/postgresql.conf /etc/postgresql/postgresql.conf
 
-# Copy init script
-COPY ./initdb.d/1_schema.sql /docker-entrypoint-initdb.d/1_schema.sql
+CMD ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
 
-EXPOSE 3306
+EXPOSE 5432
