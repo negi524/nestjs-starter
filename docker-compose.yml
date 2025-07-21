@@ -1,10 +1,10 @@
 services:
-  # mailserver:
-  #   container_name: mailserver
-  #   image: maildev/maildev
-  #   ports:
-  #     - '1025:1025'   # SMTP
-  #     - '1080:1080'   # Web UI
+  mailserver:
+    container_name: mailserver
+    image: maildev/maildev
+    ports:
+      - '1025:1025'   # SMTP
+      - '1080:1080'   # Web UI
 
   db:
     container_name: db
