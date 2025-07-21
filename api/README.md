@@ -2,6 +2,7 @@
 
 ```bash
 $ yarn install
+$ yarn prisma generate
 ```
 
 ## Compile and run the project
@@ -16,6 +17,8 @@ $ yarn run start:dev
 # production mode
 $ yarn run start:prod
 ```
+
+http://localhost:3000
 
 ## Run tests
 
@@ -41,4 +44,10 @@ $ prisma db seed
 
 # reset database and prepare test data
 $ prisma migrate reset
+```
+
+## format prisma schema
+
+```bash
+yarn format:prisma
 ```
