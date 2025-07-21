@@ -22,6 +22,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=Password!
       - POSTGRES_DB=sample
+      - APP_USER_PASSWORD=Password!
     healthcheck:
       test: "pg_isready -U postgres -d sample"
       interval: 5s
