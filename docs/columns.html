@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>sample.sample</title>
+        <title>sample.public</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
@@ -46,7 +46,7 @@
                 <nav class="navbar navbar-static-top">
                     <div class="container">
                         <div class="navbar-header">
-                            <a href="index.html" class="navbar-brand"><b>sample</b></a><span class="navbar-brand" style="padding-left: 0">.sample</span>
+                            <a href="index.html" class="navbar-brand"><b>sample</b></a><span class="navbar-brand" style="padding-left: 0">.public</span>
                             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse"><i class="fa fa-bars"></i></button>
                         </div>
 
@@ -111,18 +111,130 @@
                 <script>
                     var tableData = [
     {
+        "tableName": "_prisma_migrations",
+        "tableFileName": "_prisma_migrations",
+        "tableType": "Table",
+        "keyClass": "primaryKey",
+        "keyTitle": "Primary Key",
+        "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'></i>id",
+        "type": "varchar",
+        "length": 36,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "_prisma_migrations",
+        "tableFileName": "_prisma_migrations",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "checksum",
+        "type": "varchar",
+        "length": 64,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "_prisma_migrations",
+        "tableFileName": "_prisma_migrations",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "finished_at",
+        "type": "timestamptz",
+        "length": 35,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "_prisma_migrations",
+        "tableFileName": "_prisma_migrations",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "migration_name",
+        "type": "varchar",
+        "length": 255,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "_prisma_migrations",
+        "tableFileName": "_prisma_migrations",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "logs",
+        "type": "text",
+        "length": 2147483647,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "_prisma_migrations",
+        "tableFileName": "_prisma_migrations",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "rolled_back_at",
+        "type": "timestamptz",
+        "length": 35,
+        "nullable": "√",
+        "autoUpdated": "",
+        "defaultValue": "null",
+        "comments": ""
+    },
+    {
+        "tableName": "_prisma_migrations",
+        "tableFileName": "_prisma_migrations",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "started_at",
+        "type": "timestamptz",
+        "length": 35,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "now()",
+        "comments": ""
+    },
+    {
+        "tableName": "_prisma_migrations",
+        "tableFileName": "_prisma_migrations",
+        "tableType": "Table",
+        "keyClass": "",
+        "keyTitle": "",
+        "name": "applied_steps_count",
+        "type": "int4",
+        "length": 10,
+        "nullable": "",
+        "autoUpdated": "",
+        "defaultValue": "0",
+        "comments": ""
+    },
+    {
         "tableName": "account",
         "tableFileName": "account",
         "tableType": "Table",
         "keyClass": "primaryKey",
         "keyTitle": "Primary Key",
         "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'></i>user_id",
-        "type": "INT",
+        "type": "serial",
         "length": 10,
         "nullable": "",
         "autoUpdated": "√",
-        "defaultValue": "null",
-        "comments": "<p>ユーザーID</p>"
+        "defaultValue": "nextval('account_user_id_seq'::regclass)",
+        "comments": ""
     },
     {
         "tableName": "account",
@@ -131,12 +243,12 @@
         "keyClass": "indexedColumn",
         "keyTitle": "Indexed",
         "name": "<i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'></i>user_name",
-        "type": "VARCHAR",
+        "type": "varchar",
         "length": 255,
         "nullable": "",
         "autoUpdated": "",
         "defaultValue": "null",
-        "comments": "<p>ユーザー名</p>"
+        "comments": ""
     },
     {
         "tableName": "account",
@@ -145,12 +257,12 @@
         "keyClass": "",
         "keyTitle": "",
         "name": "password_hash",
-        "type": "VARCHAR",
+        "type": "varchar",
         "length": 255,
         "nullable": "",
         "autoUpdated": "",
         "defaultValue": "null",
-        "comments": "<p>パスワード</p>"
+        "comments": ""
     },
     {
         "tableName": "account",
@@ -159,12 +271,12 @@
         "keyClass": "",
         "keyTitle": "",
         "name": "salt",
-        "type": "VARCHAR",
+        "type": "varchar",
         "length": 100,
         "nullable": "",
         "autoUpdated": "",
         "defaultValue": "null",
-        "comments": "<p>パスワード用ソルト</p>"
+        "comments": ""
     },
     {
         "tableName": "account",
@@ -173,12 +285,12 @@
         "keyClass": "",
         "keyTitle": "",
         "name": "created_at",
-        "type": "DATETIME",
-        "length": 19,
+        "type": "timestamptz",
+        "length": 35,
         "nullable": "",
         "autoUpdated": "",
         "defaultValue": "CURRENT_TIMESTAMP",
-        "comments": "<p>アカウント作成日時</p>"
+        "comments": ""
     },
     {
         "tableName": "account",
@@ -187,12 +299,12 @@
         "keyClass": "",
         "keyTitle": "",
         "name": "updated_at",
-        "type": "DATETIME",
-        "length": 19,
+        "type": "timestamptz",
+        "length": 35,
         "nullable": "",
         "autoUpdated": "",
         "defaultValue": "CURRENT_TIMESTAMP",
-        "comments": "<p>更新日時</p>"
+        "comments": ""
     },
     {
         "tableName": "account",
@@ -201,12 +313,12 @@
         "keyClass": "",
         "keyTitle": "",
         "name": "is_active",
-        "type": "BIT",
+        "type": "bool",
         "length": 1,
         "nullable": "",
         "autoUpdated": "",
-        "defaultValue": "1",
-        "comments": "<p>アカウントが有効である</p>"
+        "defaultValue": "true",
+        "comments": ""
     },
     {
         "tableName": "employee",
@@ -215,12 +327,12 @@
         "keyClass": "primaryKey",
         "keyTitle": "Primary Key",
         "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'></i>id",
-        "type": "INT",
+        "type": "int4",
         "length": 10,
         "nullable": "",
         "autoUpdated": "",
         "defaultValue": "null",
-        "comments": "<p>従業員ID</p>"
+        "comments": ""
     },
     {
         "tableName": "employee",
@@ -229,12 +341,12 @@
         "keyClass": "",
         "keyTitle": "",
         "name": "name",
-        "type": "VARCHAR",
+        "type": "varchar",
         "length": 40,
         "nullable": "",
         "autoUpdated": "",
         "defaultValue": "null",
-        "comments": "<p>従業員名</p>"
+        "comments": ""
     },
     {
         "tableName": "employee",
@@ -243,12 +355,12 @@
         "keyClass": "",
         "keyTitle": "",
         "name": "created_at",
-        "type": "DATETIME",
-        "length": 19,
+        "type": "timestamptz",
+        "length": 35,
         "nullable": "",
         "autoUpdated": "",
         "defaultValue": "CURRENT_TIMESTAMP",
-        "comments": "<p>レコード作成日時</p>"
+        "comments": ""
     },
     {
         "tableName": "employee",
@@ -257,12 +369,12 @@
         "keyClass": "",
         "keyTitle": "",
         "name": "updated_at",
-        "type": "DATETIME",
-        "length": 19,
+        "type": "timestamptz",
+        "length": 35,
         "nullable": "",
         "autoUpdated": "",
         "defaultValue": "CURRENT_TIMESTAMP",
-        "comments": "<p>レコード更新日時</p>"
+        "comments": ""
     },
     {
         "tableName": "skill",
@@ -271,12 +383,12 @@
         "keyClass": "primaryKey",
         "keyTitle": "Primary Key",
         "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'></i>id",
-        "type": "INT",
+        "type": "serial",
         "length": 10,
         "nullable": "",
         "autoUpdated": "√",
-        "defaultValue": "null",
-        "comments": "<p>スキルID</p>"
+        "defaultValue": "nextval('skill_id_seq'::regclass)",
+        "comments": ""
     },
     {
         "tableName": "skill",
@@ -285,12 +397,12 @@
         "keyClass": "foreignKey",
         "keyTitle": "Foreign Key",
         "name": "<i class='icon ion-key iconkey' style='padding-left: 5px;'></i>employee_id",
-        "type": "INT",
+        "type": "int4",
         "length": 10,
         "nullable": "",
         "autoUpdated": "",
         "defaultValue": "null",
-        "comments": "<p>従業員ID</p>"
+        "comments": ""
     },
     {
         "tableName": "skill",
@@ -299,12 +411,12 @@
         "keyClass": "",
         "keyTitle": "",
         "name": "language",
-        "type": "VARCHAR",
+        "type": "varchar",
         "length": 40,
         "nullable": "",
         "autoUpdated": "",
         "defaultValue": "null",
-        "comments": "<p>プログラミング言語</p>"
+        "comments": ""
     }
 ];
                     var config = {

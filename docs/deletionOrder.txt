@@ -1,3 +1,4 @@
 account
+_prisma_migrations
 skill
 employee
