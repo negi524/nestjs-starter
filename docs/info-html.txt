@@ -1,4 +1,4 @@
-date=2025-06-29 09:55:13+0000
+date=2025-07-22 13:14:11+0000
 os=Linux 6.6.93-0-virt
 schemaspy-version=7.0.2
 schemaspy-revision=v7.0.2
