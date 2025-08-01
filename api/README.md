@@ -51,3 +51,15 @@ $ prisma migrate reset
 ```bash
 yarn format:prisma
 ```
+
+## Build docker image
+
+```bash
+docker build -t nestjs-starter:1.0 .
+```
+
+## Start docker application
+
+```bash
+docker container run -it --rm --name "nestjs-starter" -p 3000:3000 nestjs-starter:1.0
+```
