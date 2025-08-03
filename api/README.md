@@ -61,5 +61,5 @@ docker build -t nestjs-starter:1.0 .
 ## Start docker application
 
 ```bash
-docker container run -it --rm --name "nestjs-starter" -p 3000:3000 nestjs-starter:1.0
+docker container run -it --rm --name "nestjs-starter" -p 3000:3000 --env-file ./.env nestjs-starter:1.0
 ```
