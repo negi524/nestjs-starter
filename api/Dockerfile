@@ -1,5 +1,6 @@
 # Baseイメージ
 FROM node:22-slim AS base
+# pnpmの設定
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
@@ -8,8 +9,8 @@ RUN corepack enable
 # Use the official Node.js image as the base image
 FROM base AS builder
 
-# ARG DATABASE_URL
-# ENV DATABASE_URL=${DATABASE_URL}
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -33,6 +34,7 @@ COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/generated ./generated
+# COPY --from=builder /app/prisma ./prisma
 
 # Expose the application port
 EXPOSE 3000
