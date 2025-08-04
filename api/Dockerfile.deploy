@@ -1,4 +1,5 @@
-# Baseイメージ
+# この処理は本来パイプラインで完結する。
+# このスタータープロジェクトではデプロイ先のDBがないため、Dockerfileで方法を明示している
 FROM node:22-alpine
 # pnpmの設定
 ENV PNPM_HOME="/pnpm"
