@@ -5,7 +5,7 @@
  * @type {import("prettier").Config}
  */
 const config = {
-  trailingComma: "all",
+  trailingComma: 'all',
   singleQuote: true,
 };
 
