@@ -14,8 +14,8 @@ COPY . .
 # Install the application dependencies
 RUN corepack enable && \
   pnpm i --frozen-lockfile && \
-  pnpm prisma:generate
+  pnpm run prisma:generate
 
 # Command to run the application
-CMD ["pnpm", "prisma:deploy"]
+CMD ["pnpm", "run", "prisma:deploy"]
 
