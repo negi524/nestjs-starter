@@ -1,26 +1,41 @@
+# Baseイメージ
+FROM node:22-slim AS base
+# pnpmの設定
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN apt-get update -y && \ 
+  apt-get install -y openssl
+RUN corepack enable
+
+# ビルド用イメージ
 # Use the official Node.js image as the base image
-FROM node:22
+FROM base AS builder
 
 # Set the working directory inside the container
-WORKDIR /usr/workspace
+WORKDIR /app
 
-ENV NODE_ENV=production
-
-# Copy the rest of the application files
-COPY package.json yarn.lock .yarnrc.yml ./
-
-# Install the application dependencies
-# Build the NestJS application
-RUN corepack enable && \
-  yarn install --immutable
-
+# Copy the application files
 COPY . .
 
-RUN yarn prisma generate && \
-  yarn build
+# Install the application dependencies
+RUN pnpm i --prod --frozen-lockfile && \
+  pnpm prisma:generate && \
+  pnpm run build
+
+
+# 実行用イメージ
+FROM base
+
+WORKDIR /app
+
+# ビルドの成果物のみコピー
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/generated ./generated
 
 # Expose the application port
 EXPOSE 3000
 
 # Command to run the application
-ENTRYPOINT ["node", "dist/src/main.js"]
+ENTRYPOINT ["node", "dist/main"]

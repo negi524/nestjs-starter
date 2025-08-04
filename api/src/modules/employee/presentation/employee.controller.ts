@@ -13,10 +13,10 @@ import {
   ApiResponse,
 } from '@nestjs/swagger';
 import EmployeeRequestDto from './dto/request/employeeRequestDto';
-import { Employee } from '@prisma/client';
 import * as csv from '@fast-csv/format';
 import { EmployeeService } from '../application/employee.service';
 import { EmployeeCsvDto } from './dto/response/employeeCsvDto';
+import { Employee } from 'generated/prisma';
 
 /**
  * 従業員用のコントローラー
