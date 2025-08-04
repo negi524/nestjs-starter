@@ -19,7 +19,7 @@ COPY . .
 
 # Install the application dependencies
 RUN pnpm i --prod --frozen-lockfile && \
-  pnpm prisma:generate && \
+  pnpm run prisma:generate && \
   pnpm run build
 
 
