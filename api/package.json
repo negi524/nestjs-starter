@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "prisma generate && nest build",
+    "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
     "format:prisma": "prisma-case-format -f prisma/schema.prisma",
@@ -18,7 +18,8 @@
     "test": "vitest",
     "test:cov": "vitest run --coverage",
     "test:ui": "vitest --ui",
-    "db:deploy": "npx prisma migrate deploy"
+    "prisma:generate": "prisma generate",
+    "prisma:deploy": "prisma migrate deploy"
   },
   "dependencies": {
     "@fast-csv/format": "^5.0.2",

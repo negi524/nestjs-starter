@@ -63,3 +63,13 @@ docker build -t nestjs-starter:1.0 .
 ```bash
 docker container run -it --rm --name "nestjs-starter" -p 3000:3000 --env-file ./.env nestjs-starter:1.0
 ```
+
+## Deploy prod server
+
+```bash
+docker build -f Dockerfile.deploy -t nestjs-starter-deploy:1.0 .
+```
+
+```bash
+docker container run -it --rm --name "nestjs-starter-deploy" --env-file ./.env nestjs-starter-deploy:1.0
+```
