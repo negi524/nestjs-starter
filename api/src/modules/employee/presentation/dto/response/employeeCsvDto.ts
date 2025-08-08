@@ -6,9 +6,9 @@ import { ApiProperty } from '@nestjs/swagger';
 export class EmployeeCsvDto {
   @ApiProperty({
     description: 'ID',
-    example: '1',
+    example: '01K24SZV7B6QTJB9RQ9J8D8HXH',
   })
-  id: number;
+  id: string;
   @ApiProperty({
     description: 'ユーザー名',
     example: 'user1',
