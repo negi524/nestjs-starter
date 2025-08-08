@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { EmployeeCsvDto } from '../presentation/dto/response/employeeCsvDto';
 import { Employee } from 'generated/prisma';
+import { EmployeeCsvDto } from '../../presentation/dto/response/employeeCsvDto';
 
 /**
  * 従業員の操作
  */
 @Injectable()
-export class EmployeeService {
+export class EmployeeUseCase {
   constructor(private prisma: PrismaService) {}
 
   /**

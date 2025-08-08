@@ -26,12 +26,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - run: corepack enable && yarn install --immutable
+      - run: corepack enable && pnpm install --frozen-lockfile && pnpm run prisma:generate
       # ビルドチェック
       - name: Build check
-        run: yarn build
+        run: pnpm run build
       - name: Test check
-        run: yarn test:cov
+        run: pnpm run test:cov
 
   # APIの静的解析とフォーマットチェック
   lint:
@@ -45,8 +45,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - run: corepack enable && yarn install --immutable
+      - run: corepack enable && pnpm install --frozen-lockfile
       # 静的解析
-      - run: yarn lint
+      - run: pnpm run lint
       # フォーマッタチェック
-      - run: yarn format:check
+      - run: pnpm run format:check
