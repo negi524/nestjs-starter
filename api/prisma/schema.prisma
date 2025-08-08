@@ -10,7 +10,7 @@ datasource db {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model Employee {
-  id        Int      @id
+  id        String   @id @db.VarChar(26)
   name      String   @db.VarChar(40)
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
@@ -22,9 +22,9 @@ model Employee {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model Skill {
   id         Int      @id @default(autoincrement())
-  employeeId Int      @map("employee_id")
   language   String   @db.VarChar(40)
   employee   Employee @relation(fields: [employeeId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "skill_ibfk_1")
+  employeeId String      @map("employee_id") @db.VarChar(26)
 
   @@index([employeeId], map: "employee_id")
   @@map("skill")
@@ -38,7 +38,6 @@ model Account {
   salt         String   @db.VarChar(100)
   createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt    DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
-  isActive     Boolean  @default(true) @map("is_active")
 
   @@map("account")
 }
