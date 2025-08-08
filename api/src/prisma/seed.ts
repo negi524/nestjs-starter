@@ -14,6 +14,17 @@ async function cleanData(): Promise<void> {
   await prisma.account.deleteMany({});
 }
 
+const languages = [
+  'JavaScript',
+  'HTML',
+  'CSS',
+  'Java',
+  'C言語',
+  'PHP',
+  'Ruby',
+  'Python',
+  'Go',
+];
 let employeeIds: string[] = [];
 
 /**
@@ -43,7 +54,7 @@ async function createDummyAccounts(): Promise<void> {
  * Employeesのダミーデータを作成する
  */
 async function createDummyEmployees(): Promise<void> {
-  const employees = Array.from({ length: 10 }).map(() => {
+  const employees = Array.from({ length: 20 }).map(() => {
     return {
       id: faker.string.ulid(),
       name: faker.person.fullName(),
@@ -65,10 +76,10 @@ async function createDummyEmployees(): Promise<void> {
  * Skillsのダミーデータを作成する
  */
 async function createDummySkills(): Promise<void> {
-  const skills = Array.from({ length: 10 }).map(() => {
+  const skills = Array.from({ length: 50 }).map(() => {
     return {
       employeeId: faker.helpers.arrayElement(employeeIds),
-      language: faker.string.alpha(10),
+      language: faker.helpers.arrayElement(languages),
     };
   });
   for (const skill of skills) {
