@@ -28,8 +28,8 @@ export class Account {
 
   public static from(accountEntity: AccountEntity) {
     return new Account(
-      accountEntity.userId,
-      AccountName.from(accountEntity.userName),
+      accountEntity.id,
+      AccountName.from(accountEntity.name),
       Password.from(accountEntity.passwordHash, accountEntity.salt),
       accountEntity.createdAt,
       accountEntity.updatedAt,

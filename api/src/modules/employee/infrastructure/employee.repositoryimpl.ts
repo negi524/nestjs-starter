@@ -8,14 +8,14 @@ export class EmployeeRepositoryImpl implements EmployeeRepository {
   constructor(private prismaService: PrismaService) {}
 
   async fetchAllEmployees(): Promise<Employee[]> {
-    const employees = await this.prismaService.employee.findMany();
+    const employees = await this.prismaService.employeeEntity.findMany();
     return employees.map((item) => {
       return Employee.from(item.id, item.name, item.createdAt, item.updatedAt);
     });
   }
 
   async searchEmployees(name: string): Promise<Employee[]> {
-    return this.prismaService.employee.findMany({
+    return this.prismaService.employeeEntity.findMany({
       where: {
         name: {
           contains: name,

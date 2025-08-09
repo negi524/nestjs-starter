@@ -9,8 +9,8 @@ const prisma = new PrismaClient();
  * 既存データを全てクリアする
  */
 async function cleanData(): Promise<void> {
-  await prisma.skill.deleteMany({});
-  await prisma.employee.deleteMany({});
+  await prisma.skillEntity.deleteMany({});
+  await prisma.employeeEntity.deleteMany({});
   await prisma.accountEntity.deleteMany({});
 }
 
@@ -36,7 +36,7 @@ async function createDummyAccounts(): Promise<void> {
     const salt = bcrypt.genSaltSync(12);
     const hashedValue = bcrypt.hashSync(password, salt);
     return {
-      userName: faker.person.fullName(),
+      name: faker.person.fullName(),
       passwordHash: hashedValue,
       salt: salt,
     };
@@ -45,7 +45,7 @@ async function createDummyAccounts(): Promise<void> {
     await prisma.accountEntity.create({
       data: account,
     });
-    console.log(`Created account: ${account.userName}`);
+    console.log(`Created account: ${account.name}`);
   }
   console.log(`Created ${accounts.length} accounts records`);
 }
@@ -64,7 +64,7 @@ async function createDummyEmployees(): Promise<void> {
   employeeIds = employees.map((item) => item.id);
 
   for (const employee of employees) {
-    await prisma.employee.create({
+    await prisma.employeeEntity.create({
       data: employee,
     });
     console.log(`Created employee: ${employee.name}`);
@@ -83,7 +83,7 @@ async function createDummySkills(): Promise<void> {
     };
   });
   for (const skill of skills) {
-    await prisma.skill.create({
+    await prisma.skillEntity.create({
       data: skill,
     });
     console.log(`Created skill: ${skill.language}`);

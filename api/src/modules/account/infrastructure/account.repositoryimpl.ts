@@ -13,7 +13,7 @@ export class AccountRepositoryImpl implements AccountRepository {
 
   async fetchAccount(id: AccountId): Promise<AccountProfile | undefined> {
     const account = await this.prismaService.accountEntity.findUnique({
-      where: { userId: id.value },
+      where: { id: id.value },
     });
     if (account === null) {
       return undefined;
@@ -23,7 +23,7 @@ export class AccountRepositoryImpl implements AccountRepository {
 
   async fetchByName(name: AccountName): Promise<Account | undefined> {
     const account = await this.prismaService.accountEntity.findFirst({
-      where: { userName: name.value },
+      where: { name: name.value },
     });
     if (account === null) {
       return undefined;
@@ -35,7 +35,7 @@ export class AccountRepositoryImpl implements AccountRepository {
   async save(name: string, password: Password): Promise<Account> {
     const response = await this.prismaService.accountEntity.create({
       data: {
-        userName: name,
+        name: name,
         passwordHash: password.hash,
         salt: password.salt,
       },
