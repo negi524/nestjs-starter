@@ -3,11 +3,18 @@
  */
 export class Employee {
   private constructor(
-    private readonly id: string,
-    private readonly name: string,
+    public readonly id: string,
+    public readonly name: string,
+    public readonly createdAt: Date,
+    public readonly updatedAt: Date,
   ) {}
 
-  public from(id: string, name: string): Employee {
-    return new Employee(id, name);
+  public static from(
+    id: string,
+    name: string,
+    createdAt: Date,
+    updatedAt: Date,
+  ): Employee {
+    return new Employee(id, name, createdAt, updatedAt);
   }
 }
