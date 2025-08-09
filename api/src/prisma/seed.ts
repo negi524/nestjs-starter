@@ -11,7 +11,7 @@ const prisma = new PrismaClient();
 async function cleanData(): Promise<void> {
   await prisma.skill.deleteMany({});
   await prisma.employee.deleteMany({});
-  await prisma.account.deleteMany({});
+  await prisma.accountEntity.deleteMany({});
 }
 
 const languages = [
@@ -42,7 +42,7 @@ async function createDummyAccounts(): Promise<void> {
     };
   });
   for (const account of accounts) {
-    await prisma.account.create({
+    await prisma.accountEntity.create({
       data: account,
     });
     console.log(`Created account: ${account.userName}`);

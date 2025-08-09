@@ -1,5 +1,6 @@
 import { AccountEntity } from 'generated/prisma';
 import { Password } from './password';
+import { AccountName } from './account-name';
 
 export class Account {
   private constructor(
@@ -10,7 +11,7 @@ export class Account {
     /**
      * アカウント名
      */
-    public readonly name: string,
+    public readonly name: AccountName,
     /**
      * パスワード
      */
@@ -28,7 +29,7 @@ export class Account {
   public static from(accountEntity: AccountEntity) {
     return new Account(
       accountEntity.userId,
-      accountEntity.userName,
+      AccountName.from(accountEntity.userName),
       Password.from(accountEntity.passwordHash, accountEntity.salt),
       accountEntity.createdAt,
       accountEntity.updatedAt,

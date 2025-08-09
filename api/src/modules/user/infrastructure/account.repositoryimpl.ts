@@ -1,28 +1,29 @@
 import { AccountId } from '../domain/model/account-id';
-import { User } from '../domain/model/user';
 import { AccountRepository } from '../domain/repository/account.repository';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { UserName } from '../domain/model/userName';
 import { Account } from '../domain/model/account';
 import { Password } from '../domain/model/password';
+import { AccountProfile } from '../domain/model/account-profile';
+import { AccountName } from '../domain/model/account-name';
 
 @Injectable()
 export class AccountRepositoryImpl implements AccountRepository {
   constructor(private prismaService: PrismaService) {}
-  async fetchAccount(id: AccountId): Promise<User | undefined> {
+
+  async fetchAccount(id: AccountId): Promise<AccountProfile | undefined> {
     const account = await this.prismaService.accountEntity.findUnique({
       where: { userId: id.value },
     });
     if (account === null) {
       return undefined;
     }
-    return new User(account.userId, account.userName);
+    return AccountProfile.fromEntity(account);
   }
 
-  async fetchByName(name: UserName): Promise<Account | undefined> {
+  async fetchByName(name: AccountName): Promise<Account | undefined> {
     const account = await this.prismaService.accountEntity.findFirst({
-      where: { userName: name.name },
+      where: { userName: name.value },
     });
     if (account === null) {
       return undefined;

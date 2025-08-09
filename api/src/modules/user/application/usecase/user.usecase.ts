@@ -1,11 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { User } from '../../domain/model/user';
-import { UserName } from '../../domain/model/userName';
 import { AccountRepository } from '../../domain/repository/account.repository';
 import { AccountId } from '../../domain/model/account-id';
 import { AccountProfile } from '../../domain/model/account-profile';
 import { Account } from '../../domain/model/account';
 import { Password } from '../../domain/model/password';
+import { AccountName } from '../../domain/model/account-name';
 
 /**
  * ユーザー操作
@@ -20,7 +19,7 @@ export class UserUseCase {
    * @param id ユーザーID
    * @returns ユーザー情報
    */
-  async getUser(id: number): Promise<User | undefined> {
+  async getUser(id: number): Promise<AccountProfile | undefined> {
     const account = await this.accountRepository.fetchAccount(
       AccountId.from(id),
     );
@@ -30,7 +29,7 @@ export class UserUseCase {
       return undefined;
     }
 
-    return new User(account.id, account.name);
+    return account;
   }
 
   /**
@@ -40,13 +39,13 @@ export class UserUseCase {
    * @returns ユーザー情報
    */
   async signinUser(
-    username: UserName,
+    username: AccountName,
     password: string,
   ): Promise<AccountProfile | undefined> {
     const account = await this.accountRepository.fetchByName(username);
     if (account === undefined) {
       this.logger.error(
-        `ユーザーが見つかりませんでした\tusername=${username.name}`,
+        `ユーザーが見つかりませんでした\tusername=${username.value}`,
       );
       // TODO: 例外を投げる
       return undefined;
@@ -56,7 +55,7 @@ export class UserUseCase {
     const passwordCorrect = await account.password.equals(password);
     if (!passwordCorrect) {
       this.logger.error(
-        `パスワードが間違っています\tusername=${username.name}`,
+        `パスワードが間違っています\tusername=${username.value}`,
       );
       // TODO: 例外を投げる
       return undefined;

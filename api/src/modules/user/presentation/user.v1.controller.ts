@@ -22,9 +22,8 @@ import {
 import { UserUseCase } from '../application/usecase/user.usecase';
 import { UserResponseV1Dto } from './dto/response/user-response.v1.dto';
 import { SigninUserV1Dto } from './dto/request/signin-user.v1.dto';
-import { User } from '../domain/model/user';
-import { UserName } from '../domain/model/userName';
 import { CreateUserV1Dto } from './dto/request/create-user.v1.dto';
+import { AccountName } from '../domain/model/account-name';
 
 @ApiTags('User')
 @Controller('users')
@@ -43,11 +42,11 @@ export class UserV1Controller {
     @Param('id', ParseIntPipe) id: number,
   ): Promise<UserResponseV1Dto> {
     Logger.log('getUser', { id: id });
-    const user = await this.userUseCase.getUser(id);
-    if (user === null) {
+    const account = await this.userUseCase.getUser(id);
+    if (account === undefined) {
       throw new HttpException('NotFound', HttpStatus.NOT_FOUND);
     }
-    return new UserResponseV1Dto(user);
+    return UserResponseV1Dto.fromAccountProfile(account);
   }
 
   @Post('signin')
@@ -62,14 +61,14 @@ export class UserV1Controller {
     @Body() signinUserDto: SigninUserV1Dto,
   ): Promise<UserResponseV1Dto> {
     Logger.log('signin', { signinUserDto });
-    const user: User | null = await this.userUseCase.signinUser(
-      new UserName(signinUserDto.name),
+    const account = await this.userUseCase.signinUser(
+      new AccountName(signinUserDto.name),
       signinUserDto.password,
     );
-    if (user === null) {
+    if (account === undefined) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
-    return new UserResponseV1Dto(user);
+    return UserResponseV1Dto.fromAccountProfile(account);
   }
 
   @Post('create')
@@ -79,11 +78,11 @@ export class UserV1Controller {
     @Body() createUserV1Dto: CreateUserV1Dto,
   ): Promise<UserResponseV1Dto> {
     Logger.log('createUser');
-    const user = await this.userUseCase.createUser(
+    const account = await this.userUseCase.createUser(
       createUserV1Dto.name,
       createUserV1Dto.password,
     );
 
-    return new UserResponseV1Dto(user);
+    return UserResponseV1Dto.fromAccount(account);
   }
 }
