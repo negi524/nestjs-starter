@@ -52,7 +52,7 @@ export class AccountUseCase {
     }
 
     // パスワード検証
-    const passwordCorrect = await account.password.equals(password);
+    const passwordCorrect = account.password.verify(password);
     if (!passwordCorrect) {
       this.logger.error(
         `パスワードが間違っています\tusername=${username.value}`,
