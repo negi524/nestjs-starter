@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { EmployeeCsvV1Dto } from '../../presentation/dto/response/employee-csv.v1.dto';
 import { EmployeeRepository } from '../../domain/repository/employee.repository';
 import { EmployeeProfileV1Dto } from '../../presentation/dto/response/employee-profile.v1.dto';
@@ -9,10 +8,7 @@ import { EmployeeProfileV1Dto } from '../../presentation/dto/response/employee-p
  */
 @Injectable()
 export class EmployeeUseCase {
-  constructor(
-    private prisma: PrismaService,
-    private employeeRepository: EmployeeRepository,
-  ) {}
+  constructor(private employeeRepository: EmployeeRepository) {}
 
   /**
    * 全ての従業員をCSV用のフォーマットで取得する
