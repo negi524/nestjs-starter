@@ -1,20 +1,20 @@
 import { Module } from '@nestjs/common';
 import { PrismaModule } from 'src/prisma/prisma.module';
-import { UserV1Controller } from './presentation/user.v1.controller';
-import { UserUseCase } from './application/usecase/user.usecase';
+import { AccountV1Controller } from './presentation/account.v1.controller';
+import { AccountUseCase } from './application/usecase/account.usecase';
 import { AccountRepository } from './domain/repository/account.repository';
 import { AccountRepositoryImpl } from './infrastructure/account.repositoryimpl';
 
 @Module({
   imports: [PrismaModule],
-  controllers: [UserV1Controller],
+  controllers: [AccountV1Controller],
   providers: [
-    UserUseCase,
-    UserV1Controller,
+    AccountUseCase,
+    AccountV1Controller,
     {
       provide: AccountRepository,
       useClass: AccountRepositoryImpl,
     },
   ],
 })
-export class UserModule {}
+export class AccountModule {}

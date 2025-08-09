@@ -10,8 +10,8 @@ import { AccountName } from '../../domain/model/account-name';
  * ユーザー操作
  */
 @Injectable()
-export class UserUseCase {
-  private readonly logger = new Logger(UserUseCase.name);
+export class AccountUseCase {
+  private readonly logger = new Logger(AccountUseCase.name);
   constructor(private accountRepository: AccountRepository) {}
 
   /**
@@ -19,7 +19,7 @@ export class UserUseCase {
    * @param id ユーザーID
    * @returns ユーザー情報
    */
-  async getUser(id: number): Promise<AccountProfile | undefined> {
+  async getAccount(id: number): Promise<AccountProfile | undefined> {
     const account = await this.accountRepository.fetchAccount(
       AccountId.from(id),
     );
@@ -38,7 +38,7 @@ export class UserUseCase {
    * @param password パスワード
    * @returns ユーザー情報
    */
-  async signinUser(
+  async signinAccount(
     username: AccountName,
     password: string,
   ): Promise<AccountProfile | undefined> {
