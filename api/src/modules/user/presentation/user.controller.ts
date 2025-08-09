@@ -18,7 +18,7 @@ import {
   ApiOkResponse,
   ApiOperation,
 } from '@nestjs/swagger';
-import { UserService } from '../application/user.service';
+import { UserUseCase } from '../application/usecase/user.usecase';
 import UserResponseDto from './dto/response/userResponseDto';
 import SigninUserDto from './dto/request/signinUserDto';
 import User from '../domain/model/user';
@@ -27,7 +27,7 @@ import CreateUserDto from './dto/request/createUserDto';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userUseCase: UserUseCase) {}
 
   @Get(':id')
   @ApiOperation({ summary: 'ユーザー情報を取得する' })
@@ -41,7 +41,7 @@ export class UserController {
     @Param('id', ParseIntPipe) id: number,
   ): Promise<UserResponseDto> {
     Logger.log('getUser', { id: id });
-    const user = await this.userService.getUser(id);
+    const user = await this.userUseCase.getUser(id);
     if (user === null) {
       throw new HttpException('NotFound', HttpStatus.NOT_FOUND);
     }
@@ -58,7 +58,7 @@ export class UserController {
   })
   async signin(@Body() signinUserDto: SigninUserDto): Promise<UserResponseDto> {
     Logger.log('signin', { signinUserDto });
-    const user: User | null = await this.userService.signinUser(
+    const user: User | null = await this.userUseCase.signinUser(
       new UserName(signinUserDto.name),
       signinUserDto.password,
     );
@@ -75,7 +75,7 @@ export class UserController {
     @Body() createUserDto: CreateUserDto,
   ): Promise<UserResponseDto> {
     Logger.log('createUser');
-    const user = await this.userService.createUser(
+    const user = await this.userUseCase.createUser(
       createUserDto.name,
       createUserDto.password,
     );

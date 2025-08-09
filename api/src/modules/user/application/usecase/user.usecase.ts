@@ -1,15 +1,15 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as bcryptjs from 'bcryptjs';
 import { PrismaService } from 'src/prisma/prisma.service';
-import User from '../domain/model/user';
-import UserName from '../domain/model/userName';
+import User from '../../domain/model/user';
+import UserName from '../../domain/model/userName';
 import { Account } from 'generated/prisma';
 
 /**
  * ユーザー操作
  */
 @Injectable()
-export class UserService {
+export class UserUseCase {
   constructor(private prismaService: PrismaService) {}
 
   /**
