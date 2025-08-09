@@ -1,7 +1,7 @@
 /**
  * ユーザー名
  */
-export default class UserName {
+export class UserName {
   name: string;
   constructor(name: string) {
     if (name === '') {

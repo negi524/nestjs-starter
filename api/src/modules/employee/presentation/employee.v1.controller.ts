@@ -11,6 +11,7 @@ import {
   ApiOperation,
   ApiProduces,
   ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import { EmployeeRequestV1Dto } from './dto/request/employee-request.v1.dto';
 import * as csv from '@fast-csv/format';
@@ -21,6 +22,7 @@ import { EmployeeUseCase } from '../application/usecase/employee.usecase';
 /**
  * 従業員用のコントローラー
  */
+@ApiTags('Employee')
 @Controller('v1/employee')
 export class EmployeeV1Controller {
   constructor(private readonly employeeUseCase: EmployeeUseCase) {}

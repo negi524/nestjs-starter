@@ -17,14 +17,16 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiTags,
 } from '@nestjs/swagger';
 import { UserUseCase } from '../application/usecase/user.usecase';
 import { UserResponseV1Dto } from './dto/response/user-response.v1.dto';
 import { SigninUserV1Dto } from './dto/request/signin-user.v1.dto';
-import User from '../domain/model/user';
-import UserName from '../domain/model/userName';
+import { User } from '../domain/model/user';
+import { UserName } from '../domain/model/userName';
 import { CreateUserV1Dto } from './dto/request/create-user.v1.dto';
 
+@ApiTags('User')
 @Controller('users')
 export class UserV1Controller {
   constructor(private readonly userUseCase: UserUseCase) {}
