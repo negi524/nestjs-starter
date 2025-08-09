@@ -3,10 +3,10 @@ export class User {
     /**
      * ユーザーID
      */
-    public id: number,
+    public readonly id: number,
     /**
      * ユーザー名
      */
-    public name: string,
+    public readonly name: string,
   ) {}
 }

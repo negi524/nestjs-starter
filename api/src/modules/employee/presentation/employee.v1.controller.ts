@@ -22,7 +22,7 @@ import { EmployeeProfileV1Dto } from './dto/response/employee-profile.v1.dto';
 /**
  * 従業員用のコントローラー
  */
-@ApiTags('Employee')
+@ApiTags('Employee(DBから取得する)')
 @Controller('v1/employee')
 export class EmployeeV1Controller {
   constructor(private readonly employeeUseCase: EmployeeUseCase) {}

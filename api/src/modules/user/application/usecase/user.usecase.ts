@@ -4,30 +4,36 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from '../../domain/model/user';
 import { UserName } from '../../domain/model/userName';
 import { Account } from 'generated/prisma';
+import { AccountRepository } from '../../domain/repository/account.repository';
+import { AccountId } from '../../domain/model/account-id';
 
 /**
  * ユーザー操作
  */
 @Injectable()
 export class UserUseCase {
-  constructor(private prismaService: PrismaService) {}
+  private readonly logger = new Logger(UserUseCase.name);
+  constructor(
+    private prismaService: PrismaService,
+    private accountRepository: AccountRepository,
+  ) {}
 
   /**
    * ユーザー情報を取得する
    * @param id ユーザーID
    * @returns ユーザー情報
    */
-  async getUser(id: number): Promise<User | null> {
-    const account: Account | null = await this.prismaService.account.findUnique(
-      {
-        where: { userId: id },
-      },
+  async getUser(id: number): Promise<User | undefined> {
+    const account = await this.accountRepository.fetchAccount(
+      AccountId.from(id),
     );
-    if (account === null) {
-      Logger.error(`ユーザーが見つかりませんでした\tid=${id}`);
-      return null;
+
+    if (account === undefined) {
+      this.logger.warn(`アカウントが見つかりませんでした\taccountId=${id}`);
+      return undefined;
     }
-    return new User(account.userId, account.userName);
+
+    return new User(account.id, account.name);
   }
 
   /**
@@ -41,7 +47,9 @@ export class UserUseCase {
       where: { userName: username.name },
     });
     if (account === null) {
-      Logger.error(`ユーザーが見つかりませんでした\tusername=${username.name}`);
+      this.logger.error(
+        `ユーザーが見つかりませんでした\tusername=${username.name}`,
+      );
       return null;
     }
 
@@ -49,7 +57,9 @@ export class UserUseCase {
 
     // パスワード検証
     if (hash !== account.passwordHash) {
-      Logger.error(`パスワードが間違っています\tusername=${username.name}`);
+      this.logger.error(
+        `パスワードが間違っています\tusername=${username.name}`,
+      );
       return null;
     }
     return new User(account.userId, account.userName);

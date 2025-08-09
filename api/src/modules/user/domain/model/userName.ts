@@ -2,7 +2,7 @@
  * ユーザー名
  */
 export class UserName {
-  name: string;
+  public readonly name: string;
   constructor(name: string) {
     if (name === '') {
       throw new Error('ユーザー名が不正です');
