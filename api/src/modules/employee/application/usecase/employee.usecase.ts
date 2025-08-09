@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Employee } from 'generated/prisma';
-import { EmployeeCsvDto } from '../../presentation/dto/response/employeeCsvDto';
+import { EmployeeCsvV1Dto } from '../../presentation/dto/response/employee-csv.v1.dto';
 
 /**
  * 従業員の操作
@@ -14,7 +14,7 @@ export class EmployeeUseCase {
    * 全ての従業員をCSV用のフォーマットで取得する
    * @returns 従業員一覧
    */
-  async fetchAllEmployeeCsv(): Promise<EmployeeCsvDto[]> {
+  async fetchAllEmployeeCsv(): Promise<EmployeeCsvV1Dto[]> {
     const employees = await this.prisma.employee.findMany();
     return employees.map((item) => {
       return {

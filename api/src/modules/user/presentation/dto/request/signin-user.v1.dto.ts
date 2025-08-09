@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 /**
  * サインイン用のリクエストオブジェクト
  */
-export default class SigninUserDto {
+export class SigninUserV1Dto {
   @ApiProperty({
     description: 'ユーザー名',
     example: 'user1',
