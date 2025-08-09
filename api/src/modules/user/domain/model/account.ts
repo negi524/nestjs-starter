@@ -1,5 +1,5 @@
-import * as bcryptjs from 'bcryptjs';
 import { AccountEntity } from 'generated/prisma';
+import { Password } from './password';
 
 export class Account {
   private constructor(
@@ -12,13 +12,9 @@ export class Account {
      */
     public readonly name: string,
     /**
-     * パスワードハッシュ
+     * パスワード
      */
-    public readonly passwordHash: string,
-    /**
-     * ソルト
-     */
-    public readonly salt: string,
+    public readonly password: Password,
     /**
      * 作成日時
      */
@@ -33,20 +29,9 @@ export class Account {
     return new Account(
       accountEntity.userId,
       accountEntity.userName,
-      accountEntity.passwordHash,
-      accountEntity.salt,
+      Password.from(accountEntity.passwordHash, accountEntity.salt),
       accountEntity.createdAt,
       accountEntity.updatedAt,
     );
-  }
-
-  /**
-   * パスワードの一致を比較する
-   * @param plainPassword 比較対象のパスワード文字列
-   * @returns 一致している場合true
-   */
-  public async equalPassword(plainPassword: string): Promise<boolean> {
-    const hash = await bcryptjs.hash(plainPassword, this.salt);
-    return this.passwordHash === hash;
   }
 }

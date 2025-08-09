@@ -1,11 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
-import * as bcryptjs from 'bcryptjs';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from '../../domain/model/user';
 import { UserName } from '../../domain/model/userName';
 import { AccountRepository } from '../../domain/repository/account.repository';
 import { AccountId } from '../../domain/model/account-id';
 import { AccountProfile } from '../../domain/model/account-profile';
+import { Account } from '../../domain/model/account';
+import { Password } from '../../domain/model/password';
 
 /**
  * ユーザー操作
@@ -13,10 +13,7 @@ import { AccountProfile } from '../../domain/model/account-profile';
 @Injectable()
 export class UserUseCase {
   private readonly logger = new Logger(UserUseCase.name);
-  constructor(
-    private prismaService: PrismaService,
-    private accountRepository: AccountRepository,
-  ) {}
+  constructor(private accountRepository: AccountRepository) {}
 
   /**
    * ユーザー情報を取得する
@@ -51,15 +48,17 @@ export class UserUseCase {
       this.logger.error(
         `ユーザーが見つかりませんでした\tusername=${username.name}`,
       );
+      // TODO: 例外を投げる
       return undefined;
     }
 
     // パスワード検証
-    const passwordCorrect = await account.equalPassword(password);
+    const passwordCorrect = await account.password.equals(password);
     if (!passwordCorrect) {
       this.logger.error(
         `パスワードが間違っています\tusername=${username.name}`,
       );
+      // TODO: 例外を投げる
       return undefined;
     }
     return AccountProfile.from(account);
@@ -68,29 +67,11 @@ export class UserUseCase {
   /**
    * 新規ユーザーを生成する
    * @param userName ユーザー名
-   * @param password パスワード
+   * @param plainPassword パスワード文字列
    * @returns 生成されたユーザー情報
    */
-  async createUser(userName: string, password: string): Promise<User> {
-    const saltOrRounds = await bcryptjs.genSalt();
-    const hash = await bcryptjs.hash(password, saltOrRounds);
-
-    const response = await this.prismaService.accountEntity.create({
-      data: {
-        userName: userName,
-        passwordHash: hash,
-        salt: saltOrRounds,
-      },
-    });
-    const user = new User(response.userId, response.userName);
-    Logger.log({ user });
-    return new Promise((resolve, reject) => {
-      const success = true;
-      if (success) {
-        return resolve(user);
-      } else {
-        return reject(user);
-      }
-    });
+  async createUser(userName: string, plainPassword: string): Promise<Account> {
+    const password = await Password.generate(plainPassword);
+    return await this.accountRepository.save(userName, password);
   }
 }

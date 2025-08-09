@@ -5,6 +5,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { UserName } from '../domain/model/userName';
 import { Account } from '../domain/model/account';
+import { Password } from '../domain/model/password';
 
 @Injectable()
 export class AccountRepositoryImpl implements AccountRepository {
@@ -28,5 +29,16 @@ export class AccountRepositoryImpl implements AccountRepository {
     }
 
     return Account.from(account);
+  }
+
+  async save(name: string, password: Password): Promise<Account> {
+    const response = await this.prismaService.accountEntity.create({
+      data: {
+        userName: name,
+        passwordHash: password.hash,
+        salt: password.salt,
+      },
+    });
+    return Account.from(response);
   }
 }
