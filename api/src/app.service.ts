@@ -9,6 +9,6 @@ export class AppService implements OnApplicationShutdown {
   }
 
   getHello(): string {
-    return 'Hello World!';
+    return `Hello World! env=${process.env.NODE_ENV}`;
   }
 }
