@@ -1,14 +1,18 @@
 import { Injectable, OnApplicationShutdown } from '@nestjs/common';
-import { PrismaService } from './prisma/prisma.service';
+import { ConfigService } from '@nestjs/config';
+import { EnvironmentVariables } from './env.validaton';
 
 @Injectable()
 export class AppService implements OnApplicationShutdown {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private readonly configService: ConfigService<EnvironmentVariables>,
+  ) {}
   onApplicationShutdown(signal?: string) {
     console.log(`onApplicationShutdown: ${signal}`);
   }
 
   getHello(): string {
-    return 'Hello World!';
+    const envName = this.configService.get('NODE_ENV', { infer: true });
+    return `Hello World! env=${envName}`;
   }
 }

@@ -7,6 +7,8 @@ import { TasksModule } from './modules/task/tasks.module';
 import { EmployeeModule } from './modules/employee/employee.module';
 import { SampleMailerModule } from './modules/mail/sampleMailer.module';
 import { AccountModule } from './modules/account/account.module';
+import { ConfigModule } from '@nestjs/config';
+import { validate } from './env.validaton';
 
 @Module({
   imports: [
@@ -16,6 +18,9 @@ import { AccountModule } from './modules/account/account.module';
     AccountModule,
     EmployeeModule,
     SampleMailerModule,
+    ConfigModule.forRoot({
+      validate: validate,
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
