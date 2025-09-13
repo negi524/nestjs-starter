@@ -8,7 +8,7 @@ import { EmployeeModule } from './modules/employee/employee.module';
 import { SampleMailerModule } from './modules/mail/sampleMailer.module';
 import { AccountModule } from './modules/account/account.module';
 import { ConfigModule } from '@nestjs/config';
-import * as Joi from 'joi';
+import { validate } from './env.validaton';
 
 @Module({
   imports: [
@@ -19,12 +19,7 @@ import * as Joi from 'joi';
     EmployeeModule,
     SampleMailerModule,
     ConfigModule.forRoot({
-      validationSchema: Joi.object({
-        NODE_ENV: Joi.string()
-          .valid('local', 'development', 'production')
-          .default('local'),
-        TZ: Joi.string().valid('Asia/Tokyo').default('Asia/Tokyo'),
-      }),
+      validate: validate,
     }),
   ],
   controllers: [AppController],
