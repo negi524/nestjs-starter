@@ -10,6 +10,7 @@ import { AccountModule } from './modules/account/account.module';
 import { ConfigModule } from '@nestjs/config';
 import { validate } from './env.validaton';
 import { LoggerModule } from 'nestjs-pino';
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { LoggerModule } from 'nestjs-pino';
     AccountModule,
     EmployeeModule,
     SampleMailerModule,
+    PrometheusModule.register(),
     ConfigModule.forRoot({
       validate: validate,
     }),
