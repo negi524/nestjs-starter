@@ -13,7 +13,16 @@ import { LoggerModule } from 'nestjs-pino';
 
 @Module({
   imports: [
-    LoggerModule.forRoot(),
+    LoggerModule.forRoot({
+      pinoHttp: {
+        transport:
+          process.env.NODE_ENV === 'local'
+            ? {
+                target: 'pino-pretty',
+              }
+            : undefined,
+      },
+    }),
     TasksModule,
     HealthModule,
     PrismaModule,
