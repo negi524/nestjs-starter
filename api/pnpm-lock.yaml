@@ -41,6 +41,9 @@ importers:
         version: 11.0.0(@nestjs/common@11.1.6(class-transformer@0.5.1)(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(@prisma/client@6.16.3(prisma@6.16.3(magicast@0.3.5)(typescript@5.9.3))(typescript@5.9.3))(reflect-metadata@0.2.2)(rxjs@7.8.2)
 =======
         version: 11.0.0(@grpc/grpc-js@1.13.4)(@grpc/proto-loader@0.7.15)(@nestjs/common@11.1.5(class-transformer@0.5.1)(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.5)(@prisma/client@6.13.0(prisma@6.13.0(magicast@0.3.5)(typescript@5.9.2))(typescript@5.9.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@opentelemetry/api':
+        specifier: ^1.9.0
+        version: 1.9.0
       '@opentelemetry/auto-instrumentations-node':
         specifier: ^0.64.1
         version: 0.64.1(@opentelemetry/api@1.9.0)(@opentelemetry/core@2.1.0(@opentelemetry/api@1.9.0))
@@ -50,6 +53,9 @@ importers:
       '@opentelemetry/core':
         specifier: ^2.1.0
         version: 2.1.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation-pino':
+        specifier: ^0.52.0
+        version: 0.52.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-node':
         specifier: ^0.205.0
         version: 0.205.0(@opentelemetry/api@1.9.0)
@@ -6990,7 +6996,7 @@ snapshots:
 
   '@opentelemetry/api-logs@0.205.0':
     dependencies:
-      '@opentelemetry/api': 1.4.1
+      '@opentelemetry/api': 1.9.0
 
   '@opentelemetry/api@1.4.1': {}
 

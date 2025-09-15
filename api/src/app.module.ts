@@ -10,24 +10,25 @@ import { AccountModule } from './modules/account/account.module';
 import { ConfigModule } from '@nestjs/config';
 import { validate } from './env.validaton';
 import { LoggerModule } from 'nestjs-pino';
-import { OpenTelemetryModule } from 'nestjs-otel';
+// import { OpenTelemetryModule } from 'nestjs-otel';
+import { trace, context } from '@opentelemetry/api';
 
-const OpenTelemetryModuleConfig = OpenTelemetryModule.forRoot({
-  metrics: {
-    hostMetrics: true, // Includes Host Metrics
-    // apiMetrics: {
-    //   // @deprecated - will be removed in 8.0 - you should start using the semcov from opentelemetry metrics instead
-    //   enable: true, // Includes api metrics
-    //   defaultAttributes: {
-    //     // You can set default labels for api metrics
-    //     custom: 'label',
-    //   },
-    //   ignoreRoutes: ['/favicon.ico'], // You can ignore specific routes (See https://docs.nestjs.com/middleware#excluding-routes for options)
-    //   ignoreUndefinedRoutes: false, //Records metrics for all URLs, even undefined ones
-    //   prefix: 'my_prefix', // Add a custom prefix to all API metrics
-    // },
-  },
-});
+// const OpenTelemetryModuleConfig = OpenTelemetryModule.forRoot({
+//   metrics: {
+//     hostMetrics: true, // Includes Host Metrics
+//     // apiMetrics: {
+//     //   // @deprecated - will be removed in 8.0 - you should start using the semcov from opentelemetry metrics instead
+//     //   enable: true, // Includes api metrics
+//     //   defaultAttributes: {
+//     //     // You can set default labels for api metrics
+//     //     custom: 'label',
+//     //   },
+//     //   ignoreRoutes: ['/favicon.ico'], // You can ignore specific routes (See https://docs.nestjs.com/middleware#excluding-routes for options)
+//     //   ignoreUndefinedRoutes: false, //Records metrics for all URLs, even undefined ones
+//     //   prefix: 'my_prefix', // Add a custom prefix to all API metrics
+//     // },
+//   },
+// });
 
 @Module({
   imports: [
@@ -39,9 +40,16 @@ const OpenTelemetryModuleConfig = OpenTelemetryModule.forRoot({
                 target: 'pino-pretty',
               }
             : undefined,
+        customProps: () => {
+          const span = trace.getSpan(context.active());
+          if (span) {
+            return { traceId: span.spanContext().traceId };
+          }
+          return {};
+        },
       },
     }),
-    OpenTelemetryModuleConfig,
+    // OpenTelemetryModuleConfig,
     TasksModule,
     HealthModule,
     PrismaModule,

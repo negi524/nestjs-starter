@@ -5,9 +5,10 @@ import {
 // import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
 // import { JaegerExporter } from '@opentelemetry/exporter-jaeger';
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
-import { NodeSDK } from '@opentelemetry/sdk-node';
+import { NodeSDK, tracing, logs } from '@opentelemetry/sdk-node';
 import { AsyncLocalStorageContextManager } from '@opentelemetry/context-async-hooks';
 import * as process from 'process';
+import { PinoInstrumentation } from '@opentelemetry/instrumentation-pino';
 
 const otelSDK = new NodeSDK({
   // metricReader: new PrometheusExporter({
@@ -16,6 +17,12 @@ const otelSDK = new NodeSDK({
   // 生成されたスパンをバッファリングしてまとめてエクスポートする
   // この場合送信先はJaeger
   // spanProcessor: new BatchSpanProcessor(new JaegerExporter()),
+  spanProcessor: new tracing.SimpleSpanProcessor(
+    new tracing.ConsoleSpanExporter(),
+  ),
+  logRecordProcessor: new logs.SimpleLogRecordProcessor(
+    new logs.ConsoleLogRecordExporter(),
+  ),
   // 非同期処理間で、現在のトレースコンテキストを引き回す仕組み(非同期コードでも正しくトレースIDを維持するために必要)
   contextManager: new AsyncLocalStorageContextManager(),
   // サービス間でトレース情報を伝播させる仕組み
@@ -27,7 +34,7 @@ const otelSDK = new NodeSDK({
     ],
   }),
   // HTTPやgRPCなどのライブラリに対して、自動でトレースを挿入する(自動でスパンが生成される)
-  instrumentations: [getNodeAutoInstrumentations()],
+  instrumentations: [getNodeAutoInstrumentations(), new PinoInstrumentation()],
 });
 
 export default otelSDK;
