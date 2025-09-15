@@ -42,7 +42,7 @@ export class AccountV1Controller {
   async getAccount(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<AccountResponseV1Dto> {
-    Logger.log('getAccount', { id: id });
+    this.logger.log('アカウント情報を取得します', { id: id });
     const account = await this.accountUseCase.getAccount(id);
     if (account === undefined) {
       throw new HttpException('NotFound', HttpStatus.NOT_FOUND);
@@ -61,7 +61,7 @@ export class AccountV1Controller {
   async signin(
     @Body() signinAccountDto: SigninAccountRequestV1Dto,
   ): Promise<AccountResponseV1Dto> {
-    Logger.log('signin', { signinAccountDto });
+    this.logger.log('signin', { signinAccountDto });
     const account = await this.accountUseCase.signinAccount(
       new AccountName(signinAccountDto.name),
       signinAccountDto.password,
