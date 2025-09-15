@@ -34,7 +34,19 @@ const otelSDK = new NodeSDK({
     ],
   }),
   // HTTPやgRPCなどのライブラリに対して、自動でトレースを挿入する(自動でスパンが生成される)
-  instrumentations: [getNodeAutoInstrumentations(), new PinoInstrumentation()],
+  instrumentations: [
+    getNodeAutoInstrumentations({
+      // 不要なファイルシステム計装を無効化（ログのノイズ削減）
+      '@opentelemetry/instrumentation-fs': {
+        enabled: false,
+      },
+      // DNSクエリの計装も無効化（通常不要）
+      '@opentelemetry/instrumentation-dns': {
+        enabled: false,
+      },
+    }),
+    new PinoInstrumentation(),
+  ],
 });
 
 export default otelSDK;
