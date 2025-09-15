@@ -2,8 +2,8 @@ import {
   CompositePropagator,
   W3CTraceContextPropagator,
 } from '@opentelemetry/core';
-import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
-import { JaegerExporter } from '@opentelemetry/exporter-jaeger';
+// import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
+// import { JaegerExporter } from '@opentelemetry/exporter-jaeger';
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
 import { NodeSDK } from '@opentelemetry/sdk-node';
 import { AsyncLocalStorageContextManager } from '@opentelemetry/context-async-hooks';
@@ -15,7 +15,7 @@ const otelSDK = new NodeSDK({
   // }),
   // 生成されたスパンをバッファリングしてまとめてエクスポートする
   // この場合送信先はJaeger
-  spanProcessor: new BatchSpanProcessor(new JaegerExporter()),
+  // spanProcessor: new BatchSpanProcessor(new JaegerExporter()),
   // 非同期処理間で、現在のトレースコンテキストを引き回す仕組み(非同期コードでも正しくトレースIDを維持するために必要)
   contextManager: new AsyncLocalStorageContextManager(),
   // サービス間でトレース情報を伝播させる仕組み
