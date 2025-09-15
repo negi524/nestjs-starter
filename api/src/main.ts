@@ -2,8 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { Logger } from 'nestjs-pino';
+import otelSDK from './tracing';
 
 async function bootstrap() {
+  await otelSDK.start(); // start otelSDK before nestjs factory create
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
   app.useLogger(app.get(Logger));
 
