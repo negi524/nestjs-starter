@@ -9,9 +9,11 @@ import { SampleMailerModule } from './modules/mail/sampleMailer.module';
 import { AccountModule } from './modules/account/account.module';
 import { ConfigModule } from '@nestjs/config';
 import { validate } from './env.validaton';
+import { LoggerModule } from 'nestjs-pino';
 
 @Module({
   imports: [
+    LoggerModule.forRoot(),
     TasksModule,
     HealthModule,
     PrismaModule,

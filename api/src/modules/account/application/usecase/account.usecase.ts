@@ -20,6 +20,7 @@ export class AccountUseCase {
    * @returns ユーザー情報
    */
   async getAccount(id: number): Promise<AccountProfile | undefined> {
+    this.logger.log('UseCase層でアカウント情報を取得します');
     const account = await this.accountRepository.fetchAccount(
       AccountId.from(id),
     );
