@@ -75,6 +75,10 @@
     "typescript-eslint": "^8.39.0",
     "vitest": "^3.2.4"
   },
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=10.16"
+  },
   "prisma": {
     "seed": "ts-node src/prisma/seed.ts"
   }
