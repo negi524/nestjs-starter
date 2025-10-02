@@ -78,8 +78,5 @@
   "engines": {
     "node": ">=22.0.0",
     "pnpm": ">=10.16"
-  },
-  "prisma": {
-    "seed": "ts-node src/prisma/seed.ts"
   }
 }
