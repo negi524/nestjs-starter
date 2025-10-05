@@ -27,10 +27,6 @@ const otelSDK = new NodeSDK({
       '@opentelemetry/instrumentation-fs': {
         enabled: false,
       },
-      // DNSクエリの計装も無効化（通常不要）
-      '@opentelemetry/instrumentation-dns': {
-        enabled: false,
-      },
     }),
     new PinoInstrumentation(),
   ],
