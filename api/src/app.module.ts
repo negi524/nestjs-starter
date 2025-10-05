@@ -10,6 +10,7 @@ import { AccountModule } from './modules/account/account.module';
 import { ConfigModule } from '@nestjs/config';
 import { validate } from './env.validaton';
 import { LoggerModule } from 'nestjs-pino';
+import { trace, context } from '@opentelemetry/api';
 
 @Module({
   imports: [
@@ -21,6 +22,10 @@ import { LoggerModule } from 'nestjs-pino';
                 target: 'pino-pretty',
               }
             : undefined,
+        customProps: () => {
+          const span = trace.getSpan(context.active());
+          return { traceId: span?.spanContext().traceId ?? null };
+        },
       },
     }),
     TasksModule,
