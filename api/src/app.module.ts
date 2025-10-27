@@ -16,6 +16,11 @@ import { trace, context } from '@opentelemetry/api';
   imports: [
     LoggerModule.forRoot({
       pinoHttp: {
+        formatters: {
+          level: (label: string) => {
+            return { level: label };
+          },
+        },
         transport:
           process.env.NODE_ENV === 'local'
             ? {
