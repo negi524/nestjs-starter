@@ -38,6 +38,7 @@ jobs:
       - name: Test check
         run: pnpm run test:cov
 
+
   # APIの静的解析とフォーマットチェック
   lint:
     runs-on: ubuntu-latest
