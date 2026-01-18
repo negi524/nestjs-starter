@@ -18,15 +18,18 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [22.x]
+        node-version: [25.x]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
-      - run: corepack enable && pnpm install --frozen-lockfile && pnpm run prisma:generate
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - run: pnpm install --frozen-lockfile && pnpm run prisma:generate
       # ビルドチェック
       - name: Build check
         run: pnpm run build
@@ -38,14 +41,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [22.x]
+        node-version: [25.x]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
-      - run: corepack enable && pnpm install --frozen-lockfile
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - run: pnpm install --frozen-lockfile
       # 静的解析
       - run: pnpm run lint
       # フォーマッタチェック
