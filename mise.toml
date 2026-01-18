@@ -18,5 +18,6 @@ docker compose -f ./docker-compose-schemaspy.yml down -v --rmi all
 """
 
 [tools]
-node = "22"
+node = "25.3"
 "npm:http-server" = "latest"
+pnpm = "10.28"

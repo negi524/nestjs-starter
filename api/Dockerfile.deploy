@@ -1,9 +1,10 @@
 # この処理は本来パイプラインで完結する。
 # このスタータープロジェクトではデプロイ先のDBがないため、Dockerfileで方法を明示している
-FROM node:22-alpine
+FROM node:25-alpine
 # pnpmの設定
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
+RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.shrc" SHELL="$(which sh)" sh -
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -12,8 +13,7 @@ WORKDIR /app
 COPY . .
 
 # Install the application dependencies
-RUN corepack enable && \
-  pnpm i --frozen-lockfile && \
+RUN pnpm i --frozen-lockfile && \
   pnpm run prisma:generate
 
 # Command to run the application
