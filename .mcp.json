@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "dbhub": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@bytebase/dbhub@latest",
+        "--transport",
+        "stdio",
+        "--dsn",
+        "postgres://postgres:Password!@localhost:5432/sample"
+      ],
+      "env": {}
+    }
+  }
+}
