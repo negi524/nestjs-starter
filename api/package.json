@@ -16,6 +16,7 @@
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "vitest",
+    "test:e2e": "NODE_ENV=local vitest run --config vitest.config.e2e.mjs",
     "test:cov": "vitest run --coverage",
     "test:ui": "vitest --ui",
     "prisma:generate": "prisma generate",
