@@ -1,4 +1,11 @@
-import { describe, beforeAll, beforeEach, afterAll, test, expect } from 'vitest';
+import {
+  describe,
+  beforeAll,
+  beforeEach,
+  afterAll,
+  test,
+  expect,
+} from 'vitest';
 import request from 'supertest';
 import { INestApplication } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -26,7 +33,10 @@ describe('AccountController (e2e)', () => {
         .post('/v1/accounts/create')
         .send({ name: 'testuser', password: 'Passw0rd!' })
         .expect(201);
-      expect(res.body).toMatchObject({ id: expect.any(Number), name: 'testuser' });
+      expect(res.body).toMatchObject({
+        id: expect.any(Number),
+        name: 'testuser',
+      });
     });
 
     test('パスワード不正（バリデーション違反）', async () => {
@@ -48,7 +58,10 @@ describe('AccountController (e2e)', () => {
         .post('/v1/accounts/signin')
         .send({ name: 'signinuser', password: 'Passw0rd!' })
         .expect(200);
-      expect(res.body).toMatchObject({ id: expect.any(Number), name: 'signinuser' });
+      expect(res.body).toMatchObject({
+        id: expect.any(Number),
+        name: 'signinuser',
+      });
     });
 
     test('パスワード不一致', async () => {
@@ -87,9 +100,7 @@ describe('AccountController (e2e)', () => {
     });
 
     test('文字列ID（型不正）', async () => {
-      await request(app.getHttpServer())
-        .get('/v1/accounts/abc')
-        .expect(400);
+      await request(app.getHttpServer()).get('/v1/accounts/abc').expect(400);
     });
   });
 });

@@ -43,7 +43,9 @@ describe('EmployeeController (e2e)', () => {
       .get('/v1/employee?name=テスト')
       .expect(200);
     expect(Array.isArray(res.body)).toBe(true);
-    expect(res.body.some((e: { name: string }) => e.name === 'テスト太郎')).toBe(true);
+    expect(
+      res.body.some((e: { name: string }) => e.name === 'テスト太郎'),
+    ).toBe(true);
   });
 
   test('GET /v1/employee/download - CSV ダウンロード', async () => {
