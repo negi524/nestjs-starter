@@ -9,6 +9,15 @@
             "command": "cd \"$CLAUDE_PROJECT_DIR/api\" && pnpm run format 2>/dev/null || true"
           }
         ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR/api\" && pnpm run lint 2>/dev/null || true"
+          }
+        ]
       }
     ]
   }
