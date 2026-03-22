@@ -3,8 +3,9 @@ import { AccountRepository } from '../../domain/repository/account.repository';
 import { AccountId } from '../../domain/model/account-id';
 import { AccountProfile } from '../../domain/model/account-profile';
 import { Account } from '../../domain/model/account';
-import { Password } from '../../domain/model/password';
+import { Password, PasswordError } from '../../domain/model/password';
 import { AccountName } from '../../domain/model/account-name';
+import { err, ok, Result } from 'neverthrow';
 
 /**
  * ユーザー操作
@@ -70,8 +71,18 @@ export class AccountUseCase {
    * @param plainPassword パスワード文字列
    * @returns 生成されたユーザー情報
    */
-  async createUser(userName: string, plainPassword: string): Promise<Account> {
-    const password = await Password.generate(plainPassword);
-    return await this.accountRepository.save(userName, password);
+  async createUser(
+    userName: string,
+    plainPassword: string,
+  ): Promise<Result<Account, PasswordError>> {
+    const passwordResult = Password.generate(plainPassword);
+    if (passwordResult.isErr()) {
+      return err(passwordResult.error);
+    }
+    const account = await this.accountRepository.save(
+      userName,
+      passwordResult.value,
+    );
+    return ok(account);
   }
 }
