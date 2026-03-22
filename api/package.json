@@ -46,6 +46,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.4",
     "ejs": "^3.1.10",
+    "eslint-plugin-neverthrow": "^1.1.4",
     "nestjs-otel": "^7.0.1",
     "nestjs-pino": "^4.6.0",
     "neverthrow": "^8.2.0",
