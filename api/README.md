@@ -1,21 +1,24 @@
 ## Project setup
 
 ```bash
-$ yarn install
-$ yarn prisma generate
+$ pnpm install
+$ pnpm run prisma:generate
 ```
 
 ## Compile and run the project
 
 ```bash
 # development
-$ yarn run start
+$ pnpm run start
 
 # watch mode
-$ yarn run start:dev
+$ pnpm run start:dev
+
+# debug mode
+$ pnpm run start:debug
 
 # production mode
-$ yarn run start:prod
+$ pnpm run start:prod
 ```
 
 http://localhost:3000
@@ -24,32 +27,32 @@ http://localhost:3000
 
 ```bash
 # unit tests
-$ yarn run test
+$ pnpm run test
+
+# unit tests (UI)
+$ pnpm run test:ui
 
 # e2e tests
-$ yarn run test:e2e
+$ pnpm run test:e2e
 
 # test coverage
-$ yarn run test:cov
+$ pnpm run test:cov
 ```
 
 ## Migrate database
 
 ```bash
 # migrate
-$ prisma migrate dev
+$ pnpm exec prisma migrate dev
 
-# prepare test data
-$ prisma db seed
-
-# reset database and prepare test data
-$ prisma migrate reset
+# reset database
+$ pnpm exec prisma migrate reset
 ```
 
 ## format prisma schema
 
 ```bash
-yarn format:prisma
+pnpm run format:prisma
 ```
 
 ## Build docker image
