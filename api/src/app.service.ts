@@ -1,6 +1,6 @@
 import { Injectable, OnApplicationShutdown } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { EnvironmentVariables } from './env.validaton';
+import { EnvironmentVariables } from './config/env.validaton';
 
 @Injectable()
 export class AppService implements OnApplicationShutdown {
