@@ -31,7 +31,7 @@ export class SampleMailerService {
         },
         attachments: [
           {
-            path: path.join(process.cwd(), 'src/mailtemplates/nestjs-icon.png'),
+            path: path.join(process.cwd(), 'src/templates/nestjs-icon.png'),
             cid: 'nestjs-icon-cid',
           },
         ],

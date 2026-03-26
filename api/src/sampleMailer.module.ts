@@ -24,10 +24,7 @@ import { SampleMailerService } from './application/service/sampleMailer.service'
         from: '"No Reply" <no-reply@localhost>',
       },
       template: {
-        dir: path.join(
-          process.env.PWD ?? '',
-          'src/infrastructure/mail/templates',
-        ),
+        dir: path.join(process.env.PWD ?? '', 'src/templates'),
         adapter: new EjsAdapter(),
       },
     }),
