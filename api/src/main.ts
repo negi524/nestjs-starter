@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { Logger } from 'nestjs-pino';
-import otelSDK from './tracing';
+import otelSDK from './config/tracing';
 
 async function bootstrap() {
   await otelSDK.start(); // Start SDK before nestjs factory create
