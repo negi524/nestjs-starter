@@ -17,7 +17,7 @@ services:
       - "5432:5432"
     # データベースの内容を永続化する
     volumes:
-      - nestjs-starter-db:/var/lib/postgresql/data
+      - nestjs-starter-db:/var/lib/postgresql
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=Password!
