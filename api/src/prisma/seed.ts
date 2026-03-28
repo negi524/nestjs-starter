@@ -1,9 +1,12 @@
+import 'dotenv/config';
 import { fakerJA } from '@faker-js/faker';
 import * as bcrypt from 'bcryptjs';
+import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '../../generated/prisma';
 
 const faker = fakerJA;
-const prisma = new PrismaClient();
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const prisma = new PrismaClient({ adapter });
 
 /**
  * 既存データを全てクリアする
