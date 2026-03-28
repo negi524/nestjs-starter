@@ -20,7 +20,10 @@
     "test:cov": "vitest run --coverage",
     "test:ui": "vitest --ui",
     "prisma:generate": "prisma generate",
-    "prisma:deploy": "prisma migrate deploy"
+    "prisma:migrate:dev": "prisma migrate dev",
+    "prisma:migrate:reset": "prisma migrate reset",
+    "prisma:db:seed": "prisma db seed",
+    "prisma:migrate:deploy": "prisma migrate deploy"
   },
   "dependencies": {
     "@fast-csv/format": "^5.0.5",

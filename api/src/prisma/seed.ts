@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { Pool } from "pg";
+import { Pool } from 'pg';
 import { fakerJA } from '@faker-js/faker';
 import * as bcrypt from 'bcryptjs';
 import { PrismaPg } from '@prisma/adapter-pg';

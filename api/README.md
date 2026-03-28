@@ -43,10 +43,16 @@ $ pnpm run test:cov
 
 ```bash
 # migrate
-$ pnpm exec prisma migrate dev
+$ pnpm run prisma:migrate:dev
 
 # reset database
-$ pnpm exec prisma migrate reset
+$ pnpm run prisma:migrate:reset
+
+# seed database
+$ pnpm run prisma:db:seed
+
+# deploy migrations (production)
+$ pnpm run prisma:migrate:deploy
 ```
 
 ## format prisma schema
