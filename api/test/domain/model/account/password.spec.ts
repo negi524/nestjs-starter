@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { Password } from '../../../../../src/domain/model/account/password';
+import { Password } from '../../../../src/domain/model/account/password';
 
 describe('Password', () => {
   describe('generate', () => {
