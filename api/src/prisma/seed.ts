@@ -2,7 +2,7 @@ import 'dotenv/config';
 import { fakerJA } from '@faker-js/faker';
 import * as bcrypt from 'bcryptjs';
 import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient } from '../../generated/prisma';
+import { PrismaClient } from '../../generated/prisma/client';
 
 const faker = fakerJA;
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });

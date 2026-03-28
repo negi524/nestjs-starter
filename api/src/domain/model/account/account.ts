@@ -1,4 +1,4 @@
-import { AccountEntity } from 'generated/prisma';
+import { AccountEntity } from 'generated/prisma/client';
 import { Password } from './password';
 import { AccountName } from './account-name';
 
