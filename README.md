@@ -3,7 +3,7 @@
 ## Setup environment file
 
 ```bash
-cp api/.env.sample api/.env
+cp api/.env.example api/.env
 ```
 
 ## API
@@ -15,7 +15,7 @@ cp api/.env.sample api/.env
 ### Access database
 
 ```bash
-psql 'postgresql://postgres:Password!@localhost:5432/sample?connect_timeout=10'
+psql 'postgresql://postgres:Password!@localhost:5432/example?connect_timeout=10'
 ```
 
 ### Start database

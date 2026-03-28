@@ -9,7 +9,7 @@
         "--transport",
         "stdio",
         "--dsn",
-        "postgres://postgres:Password!@localhost:5432/sample"
+        "postgres://postgres:Password!@localhost:5432/example"
       ],
       "env": {}
     }

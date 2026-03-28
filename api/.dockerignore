@@ -7,7 +7,7 @@ dist
 *.spec.ts
 coverage
 test
-.env.sample
+.env.example
 .env
 .prettierignore
 .prettierrc.js
