@@ -6,7 +6,11 @@
 \set app_password `echo $APP_USER_PASSWORD`
 CREATE ROLE app_user LOGIN PASSWORD :'app_password';
 
--- publicスキーマに対して、テーブルの作成権限を付与(マイグレーションで必要なため)
--- 本来は付与すべきではないが、開発環境で`prisma migrate reset`を効率的に行うためにこのようにしている
--- 本番環境ではアプリケーションユーザーに対してテーブルの作成と削除権限は付与すべきではない
-GRANT CREATE ON SCHEMA public TO app_user;
+-- publicスキーマへのアクセス権限を付与
+GRANT USAGE ON SCHEMA public TO app_user;
+
+-- テーブルの操作権限を付与
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO app_user;
+
+-- マイグレーション後に作成されるテーブルにも自動的に権限を付与
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO app_user;

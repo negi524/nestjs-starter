@@ -32,6 +32,8 @@ jobs:
           package_json_file: api/package.json
 
       - run: pnpm install --frozen-lockfile && pnpm run prisma:generate
+        env:
+          MIGRATION_DATABASE_URL: "postgresql://dummy"
       # ビルドチェック
       - name: Build check
         run: pnpm run build
