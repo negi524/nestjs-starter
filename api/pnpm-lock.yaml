@@ -59,15 +59,9 @@ importers:
       '@opentelemetry/sdk-trace-base':
         specifier: ^2.6.0
         version: 2.6.0(@opentelemetry/api@1.9.0)
-      '@prisma/adapter-pg':
-        specifier: ^7.6.0
-        version: 7.6.0
       '@prisma/client':
         specifier: ^7.6.0
         version: 7.6.0(prisma@7.6.0(@types/react@19.2.14)(magicast@0.3.5)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3))(typescript@5.9.3)
-      '@types/node':
-        specifier: ^24.12.0
-        version: 24.12.0
       bcryptjs:
         specifier: ^3.0.2
         version: 3.0.3
@@ -120,6 +114,9 @@ importers:
       '@nestjs/testing':
         specifier: ^11.1.16
         version: 11.1.16(@nestjs/common@11.1.16(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.16)(@nestjs/platform-express@11.1.16)
+      '@prisma/adapter-pg':
+        specifier: ^7.6.0
+        version: 7.6.0
       '@swc/core':
         specifier: ^1.15.18
         version: 1.15.18
@@ -129,6 +126,12 @@ importers:
       '@types/express':
         specifier: ^5.0.3
         version: 5.0.6
+      '@types/node':
+        specifier: ^24.12.0
+        version: 24.12.0
+      '@types/pg':
+        specifier: ^8.20.0
+        version: 8.20.0
       '@types/supertest':
         specifier: ^6.0.3
         version: 6.0.3
@@ -144,6 +147,9 @@ importers:
       '@vitest/ui':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4)
+      dotenv:
+        specifier: ^17.3.1
+        version: 17.3.1
       eslint:
         specifier: ^9.39.4
         version: 9.39.4(jiti@2.6.1)
@@ -156,6 +162,9 @@ importers:
       globals:
         specifier: ^16.4.0
         version: 16.5.0
+      pg:
+        specifier: ^8.20.0
+        version: 8.20.0
       prettier:
         specifier: ^3.8.1
         version: 3.8.1
@@ -3395,6 +3404,10 @@ packages:
     resolution: {integrity: sha512-JVUnt+DUIzu87TABbhPmNfVdBDt18BLOWjMUFJMSi/Qqg7NTYtabbvSNJGOJ7afbRuv9D/lngizHtP7QyLQ+9w==}
     engines: {node: '>=12'}
 
+  dotenv@17.3.1:
+    resolution: {integrity: sha512-IO8C/dzEb6O3F9/twg6ZLXz164a2fhTnEWb95H23Dm4OuN+92NmEAlTrupP9VW6Jm3sO26tQlqyvyi4CsnY9GA==}
+    engines: {node: '>=12'}
+
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
     engines: {node: '>= 0.4'}
@@ -5144,9 +5157,6 @@ packages:
     resolution: {integrity: sha512-gB+R+Xud1gLFuRD/QgOIgGOBE2KCQPaPwkzBBGC9oG69pHTkhQeIuejVIk3/cnDyX39av2AxomQiyPT13WKHQA==}
     peerDependencies:
       pg: '>=8.0'
-
-  pg-protocol@1.11.0:
-    resolution: {integrity: sha512-pfsxk2M9M3BuGgDOfuy37VNRRX3jmKgMjcvAcWqNDpZSf4cUmv8HSOl5ViRQFsfARFn0KuUQTgLxVMbNq5NW3g==}
 
   pg-protocol@1.13.0:
     resolution: {integrity: sha512-zzdvXfS6v89r6v7OcFCHfHlyG/wvry1ALxZo4LqgUoy7W9xhBDMaqOuMiF3qEV45VqsN6rdlcehHrfDtlCPc8w==}
@@ -8781,18 +8791,18 @@ snapshots:
 
   '@types/pg-pool@2.0.6':
     dependencies:
-      '@types/pg': 8.15.5
+      '@types/pg': 8.20.0
 
   '@types/pg@8.15.5':
     dependencies:
       '@types/node': 24.12.0
-      pg-protocol: 1.11.0
+      pg-protocol: 1.13.0
       pg-types: 2.2.0
 
   '@types/pg@8.20.0':
     dependencies:
       '@types/node': 24.12.0
-      pg-protocol: 1.11.0
+      pg-protocol: 1.13.0
       pg-types: 2.2.0
 
   '@types/pug@2.0.10':
@@ -10003,6 +10013,8 @@ snapshots:
   dotenv@16.6.1: {}
 
   dotenv@17.2.3: {}
+
+  dotenv@17.3.1: {}
 
   dunder-proto@1.0.1:
     dependencies:
@@ -12256,8 +12268,6 @@ snapshots:
   pg-pool@3.13.0(pg@8.20.0):
     dependencies:
       pg: 8.20.0
-
-  pg-protocol@1.11.0: {}
 
   pg-protocol@1.13.0: {}
 

@@ -1,11 +1,14 @@
 import 'dotenv/config';
+import { Pool } from "pg";
 import { fakerJA } from '@faker-js/faker';
 import * as bcrypt from 'bcryptjs';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '../../generated/prisma/client';
 
 const faker = fakerJA;
-const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const connectionString = `${process.env.DATABASE_URL}`;
+const pool = new Pool({ connectionString });
+const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 /**
@@ -108,10 +111,11 @@ async function main() {
 }
 
 main()
-  .catch((e) => {
+  .catch(async (e) => {
     console.error('Error during seeding:', e);
     process.exit(1);
   })
   .finally(async () => {
     await prisma.$disconnect();
+    await pool.end();
   });
