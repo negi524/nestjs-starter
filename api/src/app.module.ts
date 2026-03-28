@@ -8,7 +8,7 @@ import { EmployeeModule } from './employee.module';
 import { SampleMailerModule } from './sampleMailer.module';
 import { AccountModule } from './account.module';
 import { ConfigModule } from '@nestjs/config';
-import { validate } from './config/env.validaton';
+import { validate } from './config/env.validation';
 import { LoggerModule } from 'nestjs-pino';
 import { trace, context } from '@opentelemetry/api';
 
