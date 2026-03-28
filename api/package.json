@@ -40,6 +40,7 @@
     "@opentelemetry/instrumentation-pino": "^0.52.3",
     "@opentelemetry/sdk-node": "^0.205.0",
     "@opentelemetry/sdk-trace-base": "^2.6.0",
+    "@prisma/adapter-pg": "^7.6.0",
     "@prisma/client": "^6.16.3",
     "@types/node": "^24.12.0",
     "bcryptjs": "^3.0.2",
