@@ -21,10 +21,10 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=Password!
-      - POSTGRES_DB=sample
+      - POSTGRES_DB=example
       - APP_USER_PASSWORD=Password!
     healthcheck:
-      test: "pg_isready -U postgres -d sample"
+      test: "pg_isready -U postgres -d example"
       interval: 5s
       timeout: 30s
       retries: 5
