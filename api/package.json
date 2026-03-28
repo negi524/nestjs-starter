@@ -98,11 +98,5 @@
     "node": ">=25.3.0",
     "pnpm": ">=10"
   },
-  "pnpm": {
-    "minimumReleaseAgeExclude": [
-      "prisma",
-      "@prisma/client",
-      "@prisma/adapter-pg"
-    ]
-  }
+  "packageManager": "pnpm@10.28.0"
 }
