@@ -10,13 +10,13 @@ enum Environment {
 
 export class EnvironmentVariables {
   @IsEnum(Environment)
-  NODE_ENV: Environment;
+  NODE_ENV!: Environment;
 
   @IsString()
   TZ = 'Asia/Tokyo';
 
   @IsString()
-  DATABASE_URL: string;
+  DATABASE_URL!: string;
 }
 
 export function validate(config: Record<string, unknown>) {

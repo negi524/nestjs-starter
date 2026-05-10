@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
-import { SampleMailerService } from 'src/application/service/sampleMailer.service';
+import { SampleMailerService } from '../../application/service/sampleMailer.service';
 
 @Controller('mail')
 export class SampleMailerController {

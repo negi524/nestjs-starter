@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PrismaModule } from 'src/prisma/prisma.module';
+import { PrismaModule } from './prisma/prisma.module';
 import { AccountV1Controller } from './presentation/controller/account.v1.controller';
 import { AccountUseCase } from './application/usecase/account.usecase';
 import { AccountRepository } from './domain/repository/account.repository';

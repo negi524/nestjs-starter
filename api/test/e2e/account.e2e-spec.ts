@@ -8,7 +8,7 @@ import {
 } from 'vitest';
 import request from 'supertest';
 import { INestApplication } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../src/prisma/prisma.service';
 import { createTestApp } from './setup';
 
 describe('AccountController (e2e)', () => {

@@ -8,10 +8,10 @@ export class SigninAccountRequestV1Dto {
     description: 'ユーザー名',
     example: 'user1',
   })
-  name: string;
+  name!: string;
   @ApiProperty({
     description: 'パスワード',
     example: 'password',
   })
-  password: string;
+  password!: string;
 }
