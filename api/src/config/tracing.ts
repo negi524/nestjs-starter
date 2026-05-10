@@ -5,7 +5,6 @@ import {
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
 import { NodeSDK, logs } from '@opentelemetry/sdk-node';
 import { AsyncLocalStorageContextManager } from '@opentelemetry/context-async-hooks';
-import * as process from 'process';
 import { PinoInstrumentation } from '@opentelemetry/instrumentation-pino';
 
 const otelSDK = new NodeSDK({
