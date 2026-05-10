@@ -5,7 +5,8 @@ export default defineConfig({
     globals: true,
     coverage: {
       enabled: true,
-      include: ['src/**'], // 対象はsrcディレクトリ配下
+      include: ['src/**'],
+      exclude: ['src/**/*.ejs'],
       reporter: ['text', 'json', 'json-summary', 'html'],
     },
   },
