@@ -1,5 +1,5 @@
 # Baseイメージ
-FROM node:25-slim AS base
+FROM node:26-slim AS base
 RUN apt-get update -y && \ 
   apt-get install -y openssl && \
   apt-get install -y vim && \
