@@ -1,7 +1,7 @@
 import { describe, beforeAll, afterAll, test, expect } from 'vitest';
 import request from 'supertest';
 import { INestApplication } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../src/prisma/prisma.service';
 import { createTestApp } from './setup';
 
 const TEST_EMPLOYEE_ID = '01ARYZ6S41TSV4RRFFQ69G5FAV';

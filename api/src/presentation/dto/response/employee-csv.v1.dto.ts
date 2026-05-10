@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Employee } from 'src/domain/model/employee/employee';
+import { Employee } from '../../../domain/model/employee/employee';
 
 /**
  * 従業員のCSVエクスポート用オブジェクト

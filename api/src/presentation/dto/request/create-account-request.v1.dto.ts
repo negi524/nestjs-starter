@@ -5,10 +5,10 @@ export class CreateAccountRequestV1Dto {
     description: 'ユーザー名',
     example: 'user1',
   })
-  name: string;
+  name!: string;
   @ApiProperty({
     description: 'パスワード',
     example: 'Passw0rd!',
   })
-  password: string;
+  password!: string;
 }

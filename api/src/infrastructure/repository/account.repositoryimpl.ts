@@ -1,6 +1,6 @@
 import { AccountId } from '../../domain/model/account/account-id';
 import { AccountRepository } from '../../domain/repository/account.repository';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { Account } from '../../domain/model/account/account';
 import { Password } from '../../domain/model/account/password';

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Employee } from 'src/domain/model/employee/employee';
+import { Employee } from '../../../domain/model/employee/employee';
 
 export class EmployeeProfileV1Dto {
   @ApiProperty({

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Account } from 'src/domain/model/account/account';
-import { AccountProfile } from 'src/domain/model/account/account-profile';
+import { Account } from '../../../domain/model/account/account';
+import { AccountProfile } from '../../../domain/model/account/account-profile';
 
 export class AccountResponseV1Dto {
   @ApiProperty({
