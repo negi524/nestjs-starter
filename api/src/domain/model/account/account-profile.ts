@@ -1,45 +1,35 @@
 import { AccountEntity } from '../../../../generated/prisma/client';
+import { Result } from 'neverthrow';
 import { Account } from './account';
 import { AccountName } from './account-name';
+import { AccountNameError } from '../../exception/account-name-error';
 
 /**
  * アカウントのプロファイル情報
  */
-export class AccountProfile {
-  private constructor(
-    /**
-     * アカウントID
-     */
-    public readonly id: number,
-    /**
-     * アカウント名
-     */
-    public readonly name: AccountName,
-    /**
-     * 作成日時
-     */
-    public readonly createdAt: Date,
-    /**
-     * 更新日時
-     */
-    public readonly updatedAt: Date,
-  ) {}
+export interface AccountProfile {
+  id: number;
+  name: AccountName;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-  public static from(account: Account): AccountProfile {
-    return new AccountProfile(
-      account.id,
-      account.name,
-      account.createdAt,
-      account.updatedAt,
-    );
-  }
+export function accountProfileFrom(account: Account): AccountProfile {
+  return {
+    id: account.id,
+    name: account.name,
+    createdAt: account.createdAt,
+    updatedAt: account.updatedAt,
+  };
+}
 
-  public static fromEntity(accountEntity: AccountEntity): AccountProfile {
-    return new AccountProfile(
-      accountEntity.id,
-      AccountName.from(accountEntity.name)._unsafeUnwrap(),
-      accountEntity.createdAt,
-      accountEntity.updatedAt,
-    );
-  }
+export function accountProfileFromEntity(
+  entity: AccountEntity,
+): Result<AccountProfile, AccountNameError> {
+  return AccountName.from(entity.name).map((name) => ({
+    id: entity.id,
+    name,
+    createdAt: entity.createdAt,
+    updatedAt: entity.updatedAt,
+  }));
 }

@@ -4,7 +4,10 @@ import { PrismaService } from '../../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { Account } from '../../domain/model/account/account';
 import { HashedPassword } from '../../domain/model/account/password';
-import { AccountProfile } from '../../domain/model/account/account-profile';
+import {
+  AccountProfile,
+  accountProfileFromEntity,
+} from '../../domain/model/account/account-profile';
 import { AccountName } from '../../domain/model/account/account-name';
 
 @Injectable()
@@ -18,7 +21,7 @@ export class AccountRepositoryImpl implements AccountRepository {
     if (account === null) {
       return undefined;
     }
-    return AccountProfile.fromEntity(account);
+    return accountProfileFromEntity(account)._unsafeUnwrap();
   }
 
   async fetchByName(name: AccountName): Promise<Account | undefined> {

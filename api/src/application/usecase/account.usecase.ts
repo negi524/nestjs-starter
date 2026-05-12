@@ -1,7 +1,10 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { AccountRepository } from '../../domain/repository/account.repository';
 import { AccountId } from '../../domain/model/account/account-id';
-import { AccountProfile } from '../../domain/model/account/account-profile';
+import {
+  AccountProfile,
+  accountProfileFrom,
+} from '../../domain/model/account/account-profile';
 import { Account } from '../../domain/model/account/account';
 import {
   hashPassword,
@@ -62,7 +65,7 @@ export class AccountUseCase {
       // TODO: 例外を投げる
       return undefined;
     }
-    return AccountProfile.from(account);
+    return accountProfileFrom(account);
   }
 
   /**
