@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { AccountRepository } from '../../domain/repository/account.repository';
 import { AccountId } from '../../domain/model/account/account-id';
 import { AccountProfile } from '../../domain/model/account/account-profile';
@@ -71,7 +71,10 @@ export class AccountUseCase {
    * @returns 生成されたユーザー情報
    */
   async createUser(userName: string, plainPassword: string): Promise<Account> {
-    const password = await Password.generate(plainPassword);
-    return await this.accountRepository.save(userName, password);
+    const passwordResult = Password.generate(plainPassword);
+    if (passwordResult.isErr()) {
+      throw new BadRequestException(passwordResult.error.message);
+    }
+    return await this.accountRepository.save(userName, passwordResult.value);
   }
 }

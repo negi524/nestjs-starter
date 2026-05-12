@@ -1,4 +1,6 @@
 import * as bcryptjs from 'bcryptjs';
+import { Result, ok, err } from 'neverthrow';
+import { PasswordPolicyViolationError } from '../../exception/password-error';
 
 /**
  * パスワード
@@ -22,22 +24,25 @@ export class Password {
   /**
    * パスワードオブジェクトを生成する
    * @param plainPassword パスワード文字列
-   * @returns 生成されたパスワードオブジェクト
+   * @returns 生成されたパスワードオブジェクト、またはバリデーションエラー
    */
-  public static generate(plainPassword: string): Password {
+  public static generate(
+    plainPassword: string,
+  ): Result<Password, PasswordPolicyViolationError> {
     if (!plainPassword || plainPassword.trim().length === 0) {
-      throw new Error('パスワードが必要です');
+      return err(PasswordPolicyViolationError('パスワードが必要です'));
     }
 
-    // パスワード複雑さ要件チェック
     if (!this.isValidPassword(plainPassword)) {
-      throw new Error(
-        'パスワードは8文字以上で、英字・数字・特殊文字を含む必要があります',
+      return err(
+        PasswordPolicyViolationError(
+          'パスワードは8文字以上で、英字・数字・特殊文字を含む必要があります',
+        ),
       );
     }
     const saltOrRounds = bcryptjs.genSaltSync(12);
     const hash = bcryptjs.hashSync(plainPassword, saltOrRounds);
-    return new Password(hash, saltOrRounds);
+    return ok(new Password(hash, saltOrRounds));
   }
 
   /**
