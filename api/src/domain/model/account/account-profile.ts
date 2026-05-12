@@ -37,7 +37,7 @@ export class AccountProfile {
   public static fromEntity(accountEntity: AccountEntity): AccountProfile {
     return new AccountProfile(
       accountEntity.id,
-      AccountName.from(accountEntity.name),
+      AccountName.from(accountEntity.name)._unsafeUnwrap(),
       accountEntity.createdAt,
       accountEntity.updatedAt,
     );

@@ -62,8 +62,15 @@ export class AccountV1Controller {
     @Body() signinAccountDto: SigninAccountRequestV1Dto,
   ): Promise<AccountResponseV1Dto> {
     this.logger.log('signin', { signinAccountDto });
+    const accountNameResult = AccountName.from(signinAccountDto.name);
+    if (accountNameResult.isErr()) {
+      throw new HttpException(
+        accountNameResult.error.message,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     const account = await this.accountUseCase.signinAccount(
-      new AccountName(signinAccountDto.name),
+      accountNameResult.value,
       signinAccountDto.password,
     );
     if (account === undefined) {

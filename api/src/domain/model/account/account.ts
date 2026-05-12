@@ -29,7 +29,7 @@ export class Account {
   public static from(accountEntity: AccountEntity) {
     return new Account(
       accountEntity.id,
-      AccountName.from(accountEntity.name),
+      AccountName.from(accountEntity.name)._unsafeUnwrap(),
       Password.from(accountEntity.passwordHash, accountEntity.salt),
       accountEntity.createdAt,
       accountEntity.updatedAt,
