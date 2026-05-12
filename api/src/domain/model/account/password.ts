@@ -1,92 +1,66 @@
-import * as bcryptjs from 'bcryptjs';
-import { Result, ok, err } from 'neverthrow';
-import { PasswordPolicyViolationError } from '../../exception/password-error';
+import * as bcrypt from 'bcryptjs';
+import { errAsync, ResultAsync } from 'neverthrow';
+import { PasswordPolicyViolationError } from '../../error/password-policy-violation-error';
 
 /**
- * パスワード
+ * ハッシュ化済みパスワード
  */
-export class Password {
-  constructor(
-    public readonly hash: string,
-    public readonly salt: string,
-  ) {}
+export interface HashedPassword {
+  readonly hashedValue: string;
+  readonly salt: string;
+}
 
-  /**
-   * パスワードオブジェクトを生成する
-   * @param passwordHash パスワードのハッシュ値
-   * @param salt パスワードのsalt値
-   * @returns 生成されたパスワードオブジェクト
-   */
-  public static from(passwordHash: string, salt: string): Password {
-    return new Password(passwordHash, salt);
+export type { PasswordPolicyViolationError };
+
+/**
+ * DBから取得したハッシュとソルトからHashedPasswordを復元する
+ */
+export function restoreHashedPassword(
+  hash: string,
+  salt: string,
+): HashedPassword {
+  return { hashedValue: hash, salt };
+}
+
+/**
+ * プレーンパスワードをバリデーション・ハッシュ化してHashedPasswordを生成する
+ */
+export function hashPassword(
+  plainPassword: string,
+): ResultAsync<HashedPassword, PasswordPolicyViolationError> {
+  if (!isValidPassword(plainPassword)) {
+    return errAsync(
+      PasswordPolicyViolationError(
+        'パスワードは8文字以上で、英字・数字・特殊文字を含む必要があります',
+      ),
+    );
   }
+  return ResultAsync.fromSafePromise(
+    bcrypt.genSalt(12).then(async (salt) => {
+      const hashedValue = await bcrypt.hash(plainPassword, salt);
+      return { hashedValue, salt } as HashedPassword;
+    }),
+  );
+}
 
-  /**
-   * パスワードオブジェクトを生成する
-   * @param plainPassword パスワード文字列
-   * @returns 生成されたパスワードオブジェクト、またはバリデーションエラー
-   */
-  public static generate(
-    plainPassword: string,
-  ): Result<Password, PasswordPolicyViolationError> {
-    if (!plainPassword || plainPassword.trim().length === 0) {
-      return err(PasswordPolicyViolationError('パスワードが必要です'));
-    }
+/**
+ * プレーンパスワードとハッシュ化パスワードを照合する
+ * @arguments plainPassword プレーンパスワード
+ * @arguments hashedPassword ハッシュ化されたパスワード
+ * @returns 照合結果（true: 一致, false: 不一致）
+ */
+export function verifyPassword(
+  plainPassword: string,
+  hashedPassword: HashedPassword,
+): boolean {
+  return bcrypt.compareSync(plainPassword, hashedPassword.hashedValue);
+}
 
-    if (!this.isValidPassword(plainPassword)) {
-      return err(
-        PasswordPolicyViolationError(
-          'パスワードは8文字以上で、英字・数字・特殊文字を含む必要があります',
-        ),
-      );
-    }
-    const saltOrRounds = bcryptjs.genSaltSync(12);
-    const hash = bcryptjs.hashSync(plainPassword, saltOrRounds);
-    return ok(new Password(hash, saltOrRounds));
-  }
+const SPECIAL_CHARS_PATTERN = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/;
 
-  /**
-   * パスワードの複雑さ要件をチェックします。
-   * - 8文字以上
-   * - 小文字英字、大文字英字、数字、特殊文字を含む
-   * @param password チェックするパスワード
-   * @returns 要件を満たす場合はtrue、そうでない場合はfalse
-   */
-  private static isValidPassword(password: string): boolean {
-    // 8文字以上
-    if (password.length < 8) return false;
-
-    // 小文字英字チェック
-    if (!/[a-z]/.test(password)) return false;
-
-    // 大文字英字チェック
-    if (!/[A-Z]/.test(password)) return false;
-
-    // 数字チェック
-    if (!/\d/.test(password)) return false;
-
-    // 特殊文字チェック
-    if (!this.hasSpecialCharacter(password)) return false;
-
-    return true;
-  }
-
-  /**
-   * パスワードに特殊文字が含まれているかをチェック
-   * @param password パスワード文字列
-   * @returns 特殊文字が含まれている場合はtrue、そうでない場合はfalse
-   */
-  private static hasSpecialCharacter(password: string): boolean {
-    const specialChars = '!@#$%^&*()_+-=[]{};\':"\\|,.<>/?';
-    return password.split('').some((char) => specialChars.includes(char));
-  }
-  /**
-   * パスワードを比較する
-   * @param plainPassword パスワード文字列
-   * @returns 一致している場合はtrue
-   */
-  public verify(plainPassword: string): boolean {
-    const hash = bcryptjs.hashSync(plainPassword, this.salt);
-    return this.hash === hash;
-  }
+function isValidPassword(password: string): boolean {
+  if (!password || password.length < 8) return false;
+  if (!/[A-Za-z]/.test(password)) return false;
+  if (!/\d/.test(password)) return false;
+  return SPECIAL_CHARS_PATTERN.test(password);
 }

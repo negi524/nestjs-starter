@@ -2,7 +2,7 @@ import { Account } from '../model/account/account';
 import { AccountId } from '../model/account/account-id';
 import { AccountName } from '../model/account/account-name';
 import { AccountProfile } from '../model/account/account-profile';
-import { Password } from '../model/account/password';
+import { HashedPassword } from '../model/account/password';
 
 export abstract class AccountRepository {
   /**
@@ -22,5 +22,5 @@ export abstract class AccountRepository {
    * @param name アカウント名
    * @param password パスワード
    */
-  abstract save(name: string, password: Password): Promise<Account>;
+  abstract save(name: string, password: HashedPassword): Promise<Account>;
 }

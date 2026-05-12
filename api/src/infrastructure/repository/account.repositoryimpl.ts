@@ -3,7 +3,7 @@ import { AccountRepository } from '../../domain/repository/account.repository';
 import { PrismaService } from '../../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { Account } from '../../domain/model/account/account';
-import { Password } from '../../domain/model/account/password';
+import { HashedPassword } from '../../domain/model/account/password';
 import { AccountProfile } from '../../domain/model/account/account-profile';
 import { AccountName } from '../../domain/model/account/account-name';
 
@@ -32,11 +32,11 @@ export class AccountRepositoryImpl implements AccountRepository {
     return Account.from(account);
   }
 
-  async save(name: string, password: Password): Promise<Account> {
+  async save(name: string, password: HashedPassword): Promise<Account> {
     const response = await this.prismaService.accountEntity.create({
       data: {
         name: name,
-        passwordHash: password.hash,
+        passwordHash: password.hashedValue,
         salt: password.salt,
       },
     });

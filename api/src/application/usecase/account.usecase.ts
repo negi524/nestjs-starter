@@ -3,7 +3,10 @@ import { AccountRepository } from '../../domain/repository/account.repository';
 import { AccountId } from '../../domain/model/account/account-id';
 import { AccountProfile } from '../../domain/model/account/account-profile';
 import { Account } from '../../domain/model/account/account';
-import { Password } from '../../domain/model/account/password';
+import {
+  hashPassword,
+  verifyPassword,
+} from '../../domain/model/account/password';
 import { AccountName } from '../../domain/model/account/account-name';
 
 /**
@@ -53,7 +56,7 @@ export class AccountUseCase {
     }
 
     // パスワード検証
-    const passwordCorrect = account.password.verify(password);
+    const passwordCorrect = verifyPassword(password, account.password);
     if (!passwordCorrect) {
       this.logger.error(
         `パスワードが間違っています\tusername=${username.value}`,
@@ -71,7 +74,7 @@ export class AccountUseCase {
    * @returns 生成されたユーザー情報
    */
   async createUser(userName: string, plainPassword: string): Promise<Account> {
-    const passwordResult = Password.generate(plainPassword);
+    const passwordResult = await hashPassword(plainPassword);
     if (passwordResult.isErr()) {
       throw new BadRequestException(passwordResult.error.message);
     }

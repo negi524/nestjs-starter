@@ -1,5 +1,5 @@
 import { AccountEntity } from '../../../../generated/prisma/client';
-import { Password } from './password';
+import { HashedPassword, restoreHashedPassword } from './password';
 import { AccountName } from './account-name';
 
 export class Account {
@@ -15,7 +15,7 @@ export class Account {
     /**
      * パスワード
      */
-    public readonly password: Password,
+    public readonly password: HashedPassword,
     /**
      * 作成日時
      */
@@ -30,7 +30,7 @@ export class Account {
     return new Account(
       accountEntity.id,
       AccountName.from(accountEntity.name)._unsafeUnwrap(),
-      Password.from(accountEntity.passwordHash, accountEntity.salt),
+      restoreHashedPassword(accountEntity.passwordHash, accountEntity.salt),
       accountEntity.createdAt,
       accountEntity.updatedAt,
     );
