@@ -24,9 +24,7 @@ export class AccountUseCase {
    */
   async getAccount(id: number): Promise<AccountProfile | undefined> {
     this.logger.log('UseCase層でアカウント情報を取得します');
-    const account = await this.accountRepository.fetchAccount(
-      AccountId.from(id),
-    );
+    const account = await this.accountRepository.fetchAccount(AccountId(id));
 
     if (account === undefined) {
       this.logger.warn(`アカウントが見つかりませんでした\taccountId=${id}`);

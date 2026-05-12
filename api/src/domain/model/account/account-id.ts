@@ -1,10 +1,10 @@
+import { Newtype } from '../newtype';
+
 /**
  * アカウントID
  */
-export class AccountId {
-  private constructor(public readonly value: number) {}
+export type AccountId = Newtype<'AccountId', number>;
 
-  public static from(id: number) {
-    return new AccountId(id);
-  }
+export function AccountId(value: number): AccountId {
+  return value as AccountId;
 }

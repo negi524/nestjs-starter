@@ -13,7 +13,7 @@ export class AccountRepositoryImpl implements AccountRepository {
 
   async fetchAccount(id: AccountId): Promise<AccountProfile | undefined> {
     const account = await this.prismaService.accountEntity.findUnique({
-      where: { id: id.value },
+      where: { id: id },
     });
     if (account === null) {
       return undefined;
