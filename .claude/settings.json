@@ -1,4 +1,23 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(pnpm run build:*)",
+      "Bash(pnpm run format:*)",
+      "Bash(pnpm run format:check:*)",
+      "Bash(pnpm run start:*)",
+      "Bash(pnpm run start:dev:*)",
+      "Bash(pnpm run start:debug:*)",
+      "Bash(pnpm run start:prod:*)",
+      "Bash(pnpm run lint:*)",
+      "Bash(pnpm run test:*)",
+      "Bash(pnpm run test:e2e:*)",
+      "Bash(pnpm run test:cov:*)",
+      "Bash(pnpm run test:ui:*)",
+      "Bash(pnpm run prisma:generate:*)",
+      "Bash(pnpm run prisma:migrate:dev:*)",
+      "Bash(pnpm run prisma:db:seed:*)"
+    ]
+  },
   "hooks": {
     "PostToolUse": [
       {
