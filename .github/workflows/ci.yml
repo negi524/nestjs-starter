@@ -6,7 +6,7 @@ on:
       - main
       - develop
     paths:
-      - 'api/**'
+      - "api/**"
 
 defaults:
   run:
@@ -16,50 +16,37 @@ jobs:
   # APIのビルドとテストを検証
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [25.x]
-
     steps:
-      - uses: actions/checkout@v6
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v6
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Setup mise
+        uses: jdx/mise-action@v2
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          package_json_file: api/package.json
-
-      - run: pnpm install --frozen-lockfile && pnpm run prisma:generate
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Prismaコード生成
+        run: pnpm run prisma:generate
         env:
           MIGRATION_DATABASE_URL: "postgresql://dummy"
-      # ビルドチェック
-      - name: Build check
+      - name: ビルドチェック
         run: pnpm run build
-      - name: Test check
+      - name: テスト実行
         run: pnpm run test:cov
-
 
   # APIの静的解析とフォーマットチェック
   lint:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [25.x]
     steps:
-      - uses: actions/checkout@v6
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v6
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Setup mise
+        uses: jdx/mise-action@v2
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          package_json_file: api/package.json
-
-      - run: pnpm install --frozen-lockfile
-      # 静的解析
-      - run: pnpm run lint
-      # フォーマッタチェック
-      - run: pnpm run format:check
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: 静的解析
+        run: pnpm run lint
+      - name: フォーマッタチェック
+        run: pnpm run format:check
